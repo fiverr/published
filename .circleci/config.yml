@@ -1,0 +1,59 @@
+defaults: &defaults
+  working_directory: ~/app
+  docker:
+    - image: circleci/node:8.9.0
+
+version: 2
+jobs:
+  release:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Set NPM user
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+      - run:
+          name: Install dependencies
+          command: npm i
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: Publish to NPM
+          command: npm start
+  docs:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: Get a docs template
+          command: curl ci-cd.net/v1/git/cp | sh -s git@github.com:omrilotan/markt.git src/docs.template.html template.html
+      - run:
+          name: Create a webpage from the readme
+          command: npx markt README.md ./gh-pages/index.html ./.docs.template.html
+      - run:
+          name: Set git user
+          command: curl ci-cd.net/v1/git/user | sh -s a1vy a01101100vy@gmail.com
+      - run:
+          name: Push gh-pages
+          command: curl ci-cd.net/v1/gh/pages | sh -s gh-pages/.
+
+experimental:
+  notify:
+    branches:
+      only:
+        - master
+
+workflows:
+  version: 2
+  ci-cd:
+    jobs:
+      - release
+      - docs:
+          filters:
+            branches:
+              only:
+                - master
