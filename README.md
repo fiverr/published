@@ -2,6 +2,8 @@
 
 [![NPM](https://nodei.co/npm/published.png)](https://www.npmjs.com/package/published)
 
+[![CircleCI](https://circleci.com/gh/fiverr/published.svg?style=svg&circle-token=c887f45cd0a168ce3a1a304923f92bff11cccd81)](https://circleci.com/gh/fiverr/published)
+
 ## TL;DR
 | Branch type | action |
 | --- | --- |
@@ -20,12 +22,12 @@ npx published
 
 ## Feature branch
 - Published only if the version has a pre-release section which contains `rc`:
-- Branch versions get a suffix that matches the
+- Branch versions get a suffix that matches the commit ID
 - Tags are named after the branch
 
 ## Master branch
 - Only publishes clean semver versions, no pre-release
-- Publishes versions to tav `latest`
+- Publishes versions to tag `latest`
 - Creates tag in git repository
 
 | branch | version | Will publish | to tag | Will create git tag |
