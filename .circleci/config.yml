@@ -22,10 +22,6 @@ jobs:
           paths:
             - ./node_modules
       - run:
-          name: set git user
-          command:   git config user.email "a1vy@fiverr.com"; git config user.name "A1vy"
-
-      - run:
           name: Publish to NPM
           command: npm start
 
