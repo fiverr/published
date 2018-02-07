@@ -6,7 +6,7 @@
             await require('./lib/publish')(options)
         );
     } catch (error) {
-        throw error;
+        console.error(error);
     }
 })(
     optionsFrom(
