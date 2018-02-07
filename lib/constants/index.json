@@ -1,0 +1,54 @@
+{
+    "ENV_PROJECT": [
+        "CI_REPO_NAME",
+        "CIRCLE_PROJECT_REPONAME",
+        "TRAVIS_REPO_SLUG"
+    ],
+    "ENV_BRANCH": [
+        "CI_BRANCH",
+        "CIRCLE_BRANCH",
+        "TRAVIS_BRANCH"
+    ],
+    "ENV_AUTHOR": [
+        "CI_COMMITTER_NAME",
+        "CIRCLE_USERNAME"
+    ],
+    "ENV_SHA": [
+        "CI_COMMIT_ID",
+        "CIRCLE_SHA1",
+        "TRAVIS_PULL_REQUEST_SHA"
+    ],
+    "ENV_SLACK_WEBHOOK": [
+        "SLACK_WEBHOOK"
+    ],
+    "SMILEYS": [
+        ":smiley:",
+        ":grinning:",
+        ":blush:",
+        ":wink:",
+        ":yum:",
+        ":sunglasses:",
+        ":hugging_face:",
+        ":monkey:",
+        ":sunflower:",
+        ":birthday:",
+        ":beers:",
+        ":medal:",
+        ":champagne:",
+        ":confetti_ball:"
+    ],
+    "RELEASE_CANDIDATES": [
+        "rc",
+        "releasecandidate",
+        "release-candidate"
+    ],
+    "COLOR_OKAY": "#27ae60",
+    "COLOR_OKAY_DESCRIPTION": "Nephritis",
+    "COLOR_NEUTRAL": "#7f8c8d",
+    "COLOR_NEUTRAL_DESCRIPTION": "Asbestos",
+    "COLOR_ERROR": "#c0392b",
+    "COLOR_ERROR_DESCRIPTION": "Pomegranate",
+    "WEBHOOK_MESSAGE_COLOUR": "#9b59b6",
+    "WEBHOOK_CHANNEL": "#publish",
+    "WEBHOOK_USERNAME": "Published"
+}
