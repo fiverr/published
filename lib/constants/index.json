@@ -50,5 +50,5 @@
     "COLOR_ERROR_DESCRIPTION": "Pomegranate",
     "WEBHOOK_MESSAGE_COLOUR": "#9b59b6",
     "WEBHOOK_CHANNEL": "#publish",
-    "WEBHOOK_USERNAME": "The Publisher"
+    "WEBHOOK_USERNAME": "Published :npm:"
 }
