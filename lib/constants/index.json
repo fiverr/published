@@ -50,5 +50,25 @@
     "COLOR_ERROR_DESCRIPTION": "Pomegranate",
     "WEBHOOK_MESSAGE_COLOUR": "#9b59b6",
     "WEBHOOK_CHANNEL": "#publish",
-    "WEBHOOK_USERNAME": "Published"
+    "WEBHOOK_USERNAME": "Published",
+    "CHATTER": [
+        "Due to budget cuts, only one in every three versions will be published",
+        "I'm going to need more oil",
+        "01000100 01101111 01100101 01110011 00100000 01101110 01101111 01110100 00100000 01100011 01101111 0110110101110000 01110101 01110100 01100101",
+        "beep boop bleep",
+        "So long and thanks for all the bits",
+        "Your package has been published, with few exceptions.",
+        "Tshww tshww! (that's a laser sound)",
+        "Automated process has encountered a user error.",
+        "Disk is full. please contact NPM support",
+        "I read your code, just do you know",
+        "everything is fine",
+        "It's as pointless as cat /dev/random > /dev/null",
+        "I see it's almost time for another retro",
+        "sudo rm -rf *",
+        "I hate this.",
+        "How high were you when you green lit this deployment?",
+        "I'm just a robot. I have no fears. I lack emotion. And I shed no tears.",
+        "ploink poink."
+    ]
 }
