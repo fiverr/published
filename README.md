@@ -1,8 +1,6 @@
-# NPM smart publishing
+# NPM smart publishing [![:white_check_mark:](https://circleci.com/gh/fiverr/published.svg?style=svg&circle-token=c887f45cd0a168ce3a1a304923f92bff11cccd81)](https://circleci.com/gh/fiverr/published)
 
 [![NPM](https://nodei.co/npm/published.png)](https://www.npmjs.com/package/published)
-
-[![CircleCI](https://circleci.com/gh/fiverr/published.svg?style=svg&circle-token=c887f45cd0a168ce3a1a304923f92bff11cccd81)](https://circleci.com/gh/fiverr/published)
 
 ## TL;DR
 | Branch type | action |
@@ -93,3 +91,5 @@ const result = await publish({testing: true}); // Publish version 1.1.0 to tag l
 > #### Using
 > `npm i -S @fiverr/package@latest`
 > - Installs `@fiverr/package` version `1.4.0`
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Ffiverr%2Fpublished.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Ffiverr%2Fpublished?ref=badge_large)
