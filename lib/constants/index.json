@@ -35,7 +35,23 @@
         ":beers:",
         ":medal:",
         ":champagne:",
-        ":confetti_ball:"
+        ":confetti_ball:",
+        ":rocket:",
+        ":sparkles:",
+        ":bowtie:"
+    ],
+    "FROWNEYS": [
+        ":disappointed:",
+        ":confounded:",
+        ":sob:",
+        ":pouting_cat:",
+        ":scream_cat:",
+        ":see_no_evil:",
+        ":skull:",
+        ":warning:",
+        ":do_not_litter:",
+        ":bangbang:",
+        ":imp:"
     ],
     "RELEASE_CANDIDATES": [
         "rc",
