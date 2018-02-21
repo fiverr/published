@@ -1,6 +1,6 @@
 {
   "name": "published",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "description": "A state machine publishing packages to NPM",
   "author": "Fiverr SRE",
   "license": "MIT",
@@ -22,7 +22,6 @@
     "boxt": "^0.2.0",
     "colors": "^1.1.2",
     "fs-extra": "^5.0.0",
-    "json-beautify": "^1.0.1",
     "lodash.merge": "^4.6.0",
     "npm": "^5.6.0",
     "package-data": "^2.0.0",
