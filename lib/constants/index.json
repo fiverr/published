@@ -85,7 +85,8 @@
         "How high were you when you green lit this deployment?",
         "I'm just a robot. I have no fears. I lack emotion. And I shed no tears.",
         "ploink poink.",
-        "All your codebase are belong to us"
+        "All your codebase are belong to us",
+        "These are not the bits you're looking for"
     ],
     "HECKLER": [
         "So I hear you like errors",
@@ -109,6 +110,8 @@
         "FACE PALM (apply directly to forehead)",
         "I'm not mad, I'm just disappointed.\n\nOkay, I'm mad, too.",
         "Got any fun plans for this weekend that I could ruin?",
-        "misery loves this company"
+        "misery loves this company",
+        "Abandoning ship",
+        "EXTERMINATE"
     ]
 }
