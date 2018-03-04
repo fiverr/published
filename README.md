@@ -8,16 +8,13 @@
 | **Feature branch** | Release RC versions on tag by branch name. |
 | **Master branch** | Release clean semver on "latest" tag. Create a git tag. |
 
+---
+
 ## Use on your development machine
 ```sh
 npm i -g published
 
 published [testing]
-```
-
-### Using NPX runner (Good for CI environments)
-```sh
-npx published [testing]
 ```
 
 ### As a module
@@ -26,6 +23,38 @@ const publish = require('published');
 
 const result = await publish({testing: true}); // Publish version 1.1.0 to tag latest.
 ```
+
+---
+
+# CI-CD Usage
+## Use NPX runner
+```sh
+npx published [testing]
+```
+
+### NPM Permissions
+In order to publish an NPM package as a privileged user, create an NPM configuration file. One way to do it is to hide the token in an environment variable and add this preceding step:
+
+```sh
+echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+```
+
+### Slack notifications
+Slack notifications will be sent using environment variable `SLACK_WEBHOOK`.
+
+The program will post a message to the channel set in environment variable `SLACK_CHANNEL`, or pull from the default constant `DEFAULT_SLACK_CHANNEL` (`#publish`)
+
+```
+example_steps:
+- echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+- npm i
+- npm t
+- npx published
+```
+
+---
+
+# Decision scheme
 
 ## Feature branch
 - Published only if the version has a pre-release section which contains `rc`:
