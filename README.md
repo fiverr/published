@@ -27,6 +27,19 @@ const publish = require('published');
 const result = await publish({testing: true}); // Publish version 1.1.0 to tag latest.
 ```
 
+## CI-CD
+### NPM Permissions
+In order to publish an NPM package as a privileged user, create an NPM configuration file. One way to do it is to hide the token in an environment variable and add this preceding step:
+
+```sh
+echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+```
+
+### Slack notifications
+Slack notifications will be sent using environment variable `SLACK_WEBHOOK`.
+
+The program will post a message to the channel set in environment variable `SLACK_CHANNEL`, or pull from the default constant `DEFAULT_SLACK_CHANNEL` (`#publish`)
+
 ## Feature branch
 - Published only if the version has a pre-release section which contains `rc`:
 - Branch versions get a suffix that matches the commit ID

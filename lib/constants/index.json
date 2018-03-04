@@ -21,6 +21,11 @@
     "ENV_SLACK_WEBHOOK": [
         "SLACK_WEBHOOK"
     ],
+    "ENV_SLACK_CHANNEL": [
+        "SLACK_CHANNEL"
+    ],
+    "DEFAULT_SLACK_USERNAME": "Published",
+    "DEFAULT_SLACK_CHANNEL": "#publish",
     "SMILEYS": [
         ":smiley:",
         ":grinning:",
@@ -64,9 +69,6 @@
     "COLOR_NEUTRAL_DESCRIPTION": "Asbestos",
     "COLOR_ERROR": "#c0392b",
     "COLOR_ERROR_DESCRIPTION": "Pomegranate",
-    "WEBHOOK_MESSAGE_COLOUR": "#9b59b6",
-    "WEBHOOK_CHANNEL": "#publish",
-    "WEBHOOK_USERNAME": "Published",
     "CHATTER": [
         "Due to budget cuts, only one in every three versions will be published",
         "I'm going to need more oil",
