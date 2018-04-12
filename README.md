@@ -1,6 +1,7 @@
-# NPM smart publishing [![:white_check_mark:](https://circleci.com/gh/fiverr/published.svg?style=svg&circle-token=c887f45cd0a168ce3a1a304923f92bff11cccd81)](https://circleci.com/gh/fiverr/published)
+# NPM smart publishing
+[![](https://circleci.com/gh/fiverr/published.svg?style=svg&circle-token=c887f45cd0a168ce3a1a304923f92bff11cccd81)](https://circleci.com/gh/fiverr/published) [![](https://img.shields.io/npm/v/published.svg)](https://www.npmjs.com/package/published) [![](https://app.fossa.io/api/projects/git%2Bgithub.com%2Ffiverr%2Fpublished.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Ffiverr%2Fpublished?ref=badge_shield)
 
-[![NPM](https://nodei.co/npm/published.png)](https://www.npmjs.com/package/published)
+<img width="630" alt="image" src="https://user-images.githubusercontent.com/516342/38674404-474fb972-3e4c-11e8-933b-eaff9de38621.png">
 
 ## TL;DR
 | Branch type | action |
@@ -10,24 +11,8 @@
 
 ---
 
-## Use on your development machine
-```sh
-npm i -g published
-
-published [testing]
-```
-
-### As a module
-```js
-const publish = require('published');
-
-const result = await publish({testing: true}); // Publish version 1.1.0 to tag latest.
-```
-
----
-
-# CI-CD Usage
-## Use NPX runner
+# Usage
+## CI-CD: Use NPX runner
 ```sh
 npx published [testing]
 ```
@@ -52,6 +37,24 @@ example_steps:
 - npx published
 ```
 
+<details>
+<summary>Use on your development machine</summary>
+
+```sh
+npm i -g published
+
+published [testing]
+```
+
+### As a module
+```js
+const publish = require('published');
+
+const result = await publish({testing: true}); // Publish version 1.1.0 to tag latest.
+```
+
+</details>
+
 ---
 
 # Decision scheme
@@ -66,15 +69,15 @@ example_steps:
 - Publishes versions to tag `latest`
 - Creates tag in git repository
 
-| branch | version | Will publish | to tag | Will create git tag |
-| --- | --- | --- | --- | --- |
-| `my_feature_branch` | `"1.3.0"` | nothing | N/A | No
-| `my_feature_branch` | `"1.3.1-alpha"` | nothing | N/A | No
-| `my_feature_branch` | `"1.3.1-rc"` | `1.3.1-rc-c447f6a` | `my_feature_branch` | No
-| `my_feature_branch` | `"1.3.1-rc.1"` | `1.3.1-rc.1-c447f6a` | `my_feature_branch` | No
-| `master` | `"1.3.0"` | `1.3.0` | `latest` | Yes
-| `master` | `"1.3.0-beta"` | Throws Error | N/A | No
-| `master` | `"1.3.0-rc"` | Throws Error | N/A | No
+| branch | version | Will publish | to tag
+| --- | --- | --- | ---
+| `my_feature_branch` | `"1.3.0"` | nothing | N/A
+| `my_feature_branch` | `"1.3.1-alpha"` | nothing | N/A
+| `my_feature_branch` | `"1.3.1-rc"` | `1.3.1-rc-c447f6a` | `my_feature_branch`
+| `my_feature_branch` | `"1.3.1-rc.1"` | `1.3.1-rc.1-c447f6a` | `my_feature_branch`
+| `master` | `"1.3.0"` | `1.3.0` | `latest`
+| `master` | `"1.3.0-beta"` | Throws Error | N/A
+| `master` | `"1.3.0-rc"` | Throws Error | N/A
 
 > ## Example flow:
 >
@@ -120,5 +123,3 @@ example_steps:
 > #### Using
 > `npm i -S @fiverr/package@latest`
 > - Installs `@fiverr/package` version `1.4.0`
-
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Ffiverr%2Fpublished.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Ffiverr%2Fpublished?ref=badge_large)
