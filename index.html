@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <title>markt</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+        <link rel="stylesheet" href="https://omrilotan.github.io/markt/styles.css">
+    </head>
+    <body>
+        <h1 id="npm-smart-publishing">NPM smart publishing</h1>
+<p><a href="https://circleci.com/gh/fiverr/published"><img src="https://circleci.com/gh/fiverr/published.svg?style=svg&amp;circle-token=c887f45cd0a168ce3a1a304923f92bff11cccd81" alt=""></a> <a href="https://www.npmjs.com/package/published"><img src="https://img.shields.io/npm/v/published.svg" alt=""></a> <a href="https://app.fossa.io/projects/git%2Bgithub.com%2Ffiverr%2Fpublished?ref=badge_shield"><img src="https://app.fossa.io/api/projects/git%2Bgithub.com%2Ffiverr%2Fpublished.svg?type=shield" alt=""></a></p>
+<p><img width="630" alt="image" src="https://user-images.githubusercontent.com/516342/38674404-474fb972-3e4c-11e8-933b-eaff9de38621.png"></p>
+<h2 id="tl-dr">TL;DR</h2>
+<table>
+<thead>
+<tr>
+<th>Branch type</th>
+<th>action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Feature branch</strong></td>
+<td>Release RC versions on tag by branch name.</td>
+</tr>
+<tr>
+<td><strong>Master branch</strong></td>
+<td>Release clean semver on &quot;latest&quot; tag. Create a git tag.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h1 id="usage">Usage</h1>
+<h2 id="ci-cd-use-npx-runner">CI-CD: Use NPX runner</h2>
+<pre><code class="lang-sh">npx published [testing]
+</code></pre>
+<h3 id="npm-permissions">NPM Permissions</h3>
+<p>In order to publish an NPM package as a privileged user, create an NPM configuration file. One way to do it is to hide the token in an environment variable and add this preceding step:</p>
+<pre><code class="lang-sh">echo &quot;//registry.npmjs.org/:_authToken=$NPM_TOKEN&quot; &gt;&gt; ~/.npmrc
+</code></pre>
+<h3 id="slack-notifications">Slack notifications</h3>
+<p>Slack notifications will be sent using environment variable <code>SLACK_WEBHOOK</code>.</p>
+<p>The program will post a message to the channel set in environment variable <code>SLACK_CHANNEL</code>, or pull from the default constant <code>DEFAULT_SLACK_CHANNEL</code> (<code>#publish</code>)</p>
+<pre><code>example_steps:
+- echo &quot;//registry.npmjs.org/:_authToken=$NPM_TOKEN&quot; &gt;&gt; ~/.npmrc
+- npm i
+- npm t
+- npx published
+</code></pre><details>
+<summary>Use on your development machine</summary>
+
+<code>sh
+npm i -g published
+
+published [testing]</code>
+
+### As a module
+<code>js
+const publish = require(&#39;published&#39;);
+
+const result = await publish({testing: true}); // Publish version 1.1.0 to tag latest.</code>
+
+</details>
+
+<hr>
+<h1 id="decision-scheme">Decision scheme</h1>
+<h2 id="feature-branch">Feature branch</h2>
+<ul>
+<li>Published only if the version has a pre-release section which contains <code>rc</code>:</li>
+<li>Branch versions get a suffix that matches the commit ID</li>
+<li>Tags are named after the branch</li>
+</ul>
+<h2 id="master-branch">Master branch</h2>
+<ul>
+<li>Only publishes clean semver versions, no pre-release</li>
+<li>Publishes versions to tag <code>latest</code></li>
+<li>Creates tag in git repository</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>branch</th>
+<th>version</th>
+<th>Will publish</th>
+<th>to tag</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>my_feature_branch</code></td>
+<td><code>&quot;1.3.0&quot;</code></td>
+<td>nothing</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>my_feature_branch</code></td>
+<td><code>&quot;1.3.1-alpha&quot;</code></td>
+<td>nothing</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>my_feature_branch</code></td>
+<td><code>&quot;1.3.1-rc&quot;</code></td>
+<td><code>1.3.1-rc-c447f6a</code></td>
+<td><code>my_feature_branch</code></td>
+</tr>
+<tr>
+<td><code>my_feature_branch</code></td>
+<td><code>&quot;1.3.1-rc.1&quot;</code></td>
+<td><code>1.3.1-rc.1-c447f6a</code></td>
+<td><code>my_feature_branch</code></td>
+</tr>
+<tr>
+<td><code>master</code></td>
+<td><code>&quot;1.3.0&quot;</code></td>
+<td><code>1.3.0</code></td>
+<td><code>latest</code></td>
+</tr>
+<tr>
+<td><code>master</code></td>
+<td><code>&quot;1.3.0-beta&quot;</code></td>
+<td>Throws Error</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>master</code></td>
+<td><code>&quot;1.3.0-rc&quot;</code></td>
+<td>Throws Error</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<h2 id="example-flow-">Example flow:</h2>
+<h3 id="-fiverr-package-">@fiverr/package:</h3>
+<h4 id="developing">Developing</h4>
+<p><code>git checkout -b my_awesome_feature</code>
+<code>npm version 1.4.0-beta</code>
+<code>git push origin my_awesome_feature</code></p>
+<ul>
+<li>Circle CI works, does not release package version</li>
+</ul>
+<h4 id="release-candidate-live-testing-">Release candidate (live testing)</h4>
+<p><code>npm version 1.4.0-rc</code>
+<code>git push origin my_awesome_feature</code></p>
+<ul>
+<li>Circle CI works, releases package version <code>1.4.0-rc-c447f6a</code> to tag <code>my_awesome_feature</code></li>
+</ul>
+<h3 id="consuming-service">Consuming Service</h3>
+<h4 id="testing">Testing</h4>
+<p><code>npm i -S @fiverr/package@my_awesome_feature</code></p>
+<ul>
+<li>Installs <code>@fiverr/package</code> version <code>1.4.0-rc-c447f6a</code></li>
+</ul>
+<h3 id="-fiverr-package-">@fiverr/package:</h3>
+<h4 id="fix-issue-in-release-candidate">Fix issue in release candidate</h4>
+<p><code>git push origin my_awesome_feature</code></p>
+<ul>
+<li>Circle CI works, releases package version <code>1.4.0-rc-a594081</code> to tag <code>my_awesome_feature</code></li>
+</ul>
+<h3 id="consuming-service">Consuming Service</h3>
+<h4 id="testing">Testing</h4>
+<p><code>npm i -S @fiverr/package@my_awesome_feature</code> // same tag</p>
+<ul>
+<li>Installs <code>@fiverr/package</code> version <code>1.4.0-rc-a594081</code> // new version</li>
+</ul>
+<h3 id="-fiverr-package-">@fiverr/package:</h3>
+<h4 id="finalising">Finalising</h4>
+<p><code>npm version 1.4.0</code>
+<code>git push origin my_awesome_feature</code></p>
+<ul>
+<li>Circle CI works, releases nothing</li>
+</ul>
+<p><code>git checkout master</code>
+<code>git merge my_awesome_feature</code>
+<code>git push origin master</code></p>
+<ul>
+<li>Circle CI works, releases package version <code>1.4.0</code> to tag <code>latest</code></li>
+</ul>
+<h3 id="consuming-service">Consuming Service</h3>
+<h4 id="using">Using</h4>
+<p><code>npm i -S @fiverr/package@latest</code></p>
+<ul>
+<li>Installs <code>@fiverr/package</code> version <code>1.4.0</code></li>
+</ul>
+</blockquote>
+    </body>
+</html>
