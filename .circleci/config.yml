@@ -24,6 +24,22 @@ jobs:
       - run:
           name: Publish to NPM
           command: npm start
+  docs:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: Get a docs template
+          command: curl ci-cd.net/v1/git/cp | sh -s git@github.com:omrilotan/markt.git src/docs.template.html template.html
+      - run:
+          name: Create a webpage from the readme
+          command: npx markt README.md ./gh-pages/index.html ./template.html
+      - run:
+          name: Set git user
+          command: curl ci-cd.net/v1/git/user | sh -s a1vy a01101100vy@gmail.com
+      - run:
+          name: Push gh-pages
+          command: curl ci-cd.net/v1/gh/pages | sh -s gh-pages/.
 
 experimental:
   notify:
@@ -36,3 +52,8 @@ workflows:
   ci-cd:
     jobs:
       - release
+      - docs:
+          filters:
+            branches:
+              only:
+                - master
