@@ -30,10 +30,10 @@ jobs:
       - checkout
       - run:
           name: Get a docs template
-          command: curl ci-cd.net/v1/git/cp | sh -s git@github.com:omrilotan/markt.git src/docs.template.html template.html
+          command: curl https://raw.githubusercontent.com/omrilotan/mono/master/packages/markt/templates/plain.html > ./template.html
       - run:
           name: Create a webpage from the readme
-          command: npx markt README.md ./gh-pages/index.html ./template.html
+          command: npx markt --source README.md --destination ./gh-pages/index.html --template ./template.html --title published
       - run:
           name: Set git user
           command: curl ci-cd.net/v1/git/user | sh -s a1vy a01101100vy@gmail.com
