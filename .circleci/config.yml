@@ -12,8 +12,8 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
-          name: Set NPM user
-          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
+          name: Set NPM tokens
+          command: echo -e $NPMRC > ~/.npmrc
       - run:
           name: Install dependencies
           command: npm i
@@ -51,7 +51,8 @@ workflows:
   version: 2
   ci-cd:
     jobs:
-      - release
+      - release:
+          context: org-global
       - docs:
           filters:
             branches:
