@@ -26,7 +26,7 @@ const {
     isLatestBranch,
     postRequest,
     successMessage,
-    verifyVersion,
+    skipPublish,
 } = require('./lib');
 
 (async function() {
@@ -94,8 +94,10 @@ async function start() {
         git.short,
     ]);
 
-    if (!verifyVersion(version, branch)) {
-        return {message: 'Version does not require publishing'};
+    const skip = skipPublish(version, branch);
+
+    if (skip) {
+        return {message: skip};
     }
 
     const suffix = isLatestBranch(branch) ? '' : `-${short}`;
