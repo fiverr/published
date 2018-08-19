@@ -14,7 +14,7 @@ npx published
 | Dry run | `npx published testing`
 | Notify on Slack | `npx published --slack.webhook $SLACK_WEBHOOK`
 | Change Slack webhook channel | `npx published --slack.webhook $SLACK_WEBHOOK --slack.channel "#publish"`
-| Silent outputs and notifications | `npx published --quiet true`
+| Silent outputs and notifications | `npx published --quiet`
 
 ## TL;DR
 | Branch type | action |
