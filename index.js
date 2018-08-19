@@ -30,7 +30,7 @@ const {
 } = require('./lib');
 
 (async function() {
-    const narrate = testing || !quiet;
+    const narrate = testing || !['true', true].includes(quiet);
 
     try {
         const {
@@ -43,28 +43,30 @@ const {
         if (testing) { return; }
         if (!details) { return; }
 
-        const body = formatSlackMessage(Object.assign(
-            successMessage(details),
-            {
-                username: details.author,
-                status: 'pass',
-                channel: slack.channel,
-            }
-        ));
+        if (narrate) {
+            const body = formatSlackMessage(Object.assign(
+                successMessage(details),
+                {
+                    username: details.author,
+                    status: 'pass',
+                    channel: slack.channel,
+                }
+            ));
+            await slackNotification(body);
+        }
 
-        narrate && await slackNotification(body);
     } catch (error) {
-        narrate && console.error(error);
-
-        const body = formatSlackMessage({
-            username: await git.author,
-            status: 'fail',
-            pretext: `An error has occured trying to publish from ${await git.name} repository`,
-            text: error.message,
-            channel: slack.channel,
-        });
-
-        narrate && await slackNotification(body);
+        if (narrate) {
+            console.error(error);
+            const body = formatSlackMessage({
+                username: await git.author,
+                status: 'fail',
+                pretext: `An error has occured trying to publish from ${await git.name} repository`,
+                text: error.message,
+                channel: slack.channel,
+            });
+            await slackNotification(body);
+        }
     } finally {
         reset();
     }
@@ -92,14 +94,12 @@ async function start() {
         git.short,
     ]);
 
-    const shouldPublish = verifyVersion(version, branch);
-
-    if (!shouldPublish) {
+    if (!verifyVersion(version, branch)) {
         return {message: 'Version does not require publishing'};
     }
 
     const suffix = isLatestBranch(branch) ? '' : `-${short}`;
-    const tag = getTag(branch, publishConfig.tag || 'latest');
+    const tag = getTag(branch, publishConfig.tag);
 
     const exist = await exists(name, `${version}${suffix}`);
 
