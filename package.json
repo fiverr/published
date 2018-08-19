@@ -1,6 +1,6 @@
 {
   "name": "published",
-  "version": "0.1.31",
+  "version": "1.0.0",
   "description": "A state machine publishing packages to NPM",
   "author": "Fiverr SRE",
   "license": "MIT",
@@ -8,32 +8,29 @@
     "type": "git",
     "url": "git+https://github.com/fiverr/published.git"
   },
-  "homepage": "https://github.com/fiverr/published#readme",
+  "homepage": "https://fiverr.github.io/published/",
   "main": "./lib/publish/index.js",
   "bin": {
     "published": "./index.js"
   },
   "scripts": {
     "start": "node ./index.js",
-    "prepublishOnly": "npm t",
-    "test": "mocha lib/**/spec.js --quiet"
+    "test": "mocha lib/**/spec.js",
+    "lint": "eslint -c .eslintrc '**/*.js'"
   },
   "dependencies": {
-    "boxt": "^0.3.0",
-    "colors": "^1.1.2",
-    "fs-extra": "^5.0.0",
-    "lodash.merge": "^4.6.0",
-    "npm": "^5.7.1",
-    "package-data": "^2.0.0",
-    "paraphrase": "^1.2.0"
+    "async-git": "^1.1.0",
+    "doamrn": "^1.0.0",
+    "edit-package": "^1.0.1",
+    "index-require": "^0.1.0",
+    "jsnpm": "^0.2.0",
+    "paraphrase": "^1.3.0",
+    "yargs": "^12.0.1"
   },
   "devDependencies": {
     "chai": "^4.1.2",
+    "eslint": "^5.2.0",
     "import-fresh": "^2.0.0",
-    "mocha": "^5.0.1"
-  },
-  "publishConfig": {
-    "tag": "next",
-    "tag-version-prefix": ""
+    "mocha": "^5.2.0"
   }
 }
