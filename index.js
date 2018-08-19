@@ -8,7 +8,7 @@ const {
     reset,
 } = require('edit-package');
 const {
-    quiet,
+    quiet = false,
     slack = {},
     _,
 } = require('yargs').argv;
@@ -52,7 +52,7 @@ const {
             }
         ));
 
-        await slackNotification(body);
+        narrate && await slackNotification(body);
     } catch (error) {
         narrate && console.error(error);
 
@@ -64,7 +64,7 @@ const {
             channel: slack.channel,
         });
 
-        await slackNotification(body);
+        narrate && await slackNotification(body);
     } finally {
         reset();
     }

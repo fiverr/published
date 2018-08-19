@@ -1,6 +1,6 @@
 {
   "name": "published",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "A state machine publishing packages to NPM",
   "author": "Fiverr SRE",
   "license": "MIT",
