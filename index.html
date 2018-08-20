@@ -21,25 +21,35 @@
 <thead>
 <tr>
 <th>option</th>
+<th>Description</th>
 <th>Example</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td>testing</td>
 <td>Dry run</td>
-<td><code>npx published testing</code></td>
+<td><code>npx published --testing</code></td>
 </tr>
 <tr>
+<td>slack.webhook</td>
 <td>Notify on Slack</td>
 <td><code>npx published --slack.webhook $SLACK_WEBHOOK</code></td>
 </tr>
 <tr>
+<td>slack.channel</td>
 <td>Change Slack webhook channel</td>
 <td><code>npx published --slack.webhook $SLACK_WEBHOOK --slack.channel &quot;#publish&quot;</code></td>
 </tr>
 <tr>
+<td>quiet</td>
 <td>Silent outputs and notifications</td>
 <td><code>npx published --quiet</code></td>
+</tr>
+<tr>
+<td>gitTag</td>
+<td>Push a tag to git, Only from <code>master</code> or <code>latest</code> branch</td>
+<td><code>npx published --gitTag</code></td>
 </tr>
 </tbody>
 </table>
@@ -57,7 +67,7 @@
 <td>Release RC versions on tag by branch name.</td>
 </tr>
 <tr>
-<td><strong>Master branch</strong></td>
+<td><strong>Master (latest) branch</strong></td>
 <td>Release clean semver on &quot;latest&quot; tag.</td>
 </tr>
 </tbody>
