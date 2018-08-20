@@ -47,14 +47,12 @@ const {
         if (!details) { return; }
 
         if (narrate) {
-            const body = formatSlackMessage(Object.assign(
-                successMessage(details),
-                {
-                    username: details.author,
-                    status: 'pass',
-                    channel: slack.channel,
-                }
-            ));
+            const body = formatSlackMessage({
+                ...successMessage(details),
+                username: details.author,
+                status: 'pass',
+                channel: slack.channel,
+            });
             await slackNotification(body);
         }
 
