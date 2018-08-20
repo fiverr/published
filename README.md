@@ -9,18 +9,19 @@ npx published
 ```
 ### Options
 
-| option | Example
-| - | -
-| Dry run | `npx published testing`
-| Notify on Slack | `npx published --slack.webhook $SLACK_WEBHOOK`
-| Change Slack webhook channel | `npx published --slack.webhook $SLACK_WEBHOOK --slack.channel "#publish"`
-| Silent outputs and notifications | `npx published --quiet`
+| option | Description | Example
+| - | - | -
+| testing | Dry run | `npx published --testing`
+| slack.webhook | Notify on Slack | `npx published --slack.webhook $SLACK_WEBHOOK`
+| slack.channel | Change Slack webhook channel | `npx published --slack.webhook $SLACK_WEBHOOK --slack.channel "#publish"`
+| quiet | Silent outputs and notifications | `npx published --quiet`
+| gitTag | Push a tag to git, Only from `master` or `latest` branch | `npx published --gitTag`
 
 ## TL;DR
 | Branch type | action |
 | --- | --- |
 | **Feature branch** | Release RC versions on tag by branch name. |
-| **Master branch** | Release clean semver on "latest" tag. |
+| **Master (latest) branch** | Release clean semver on "latest" tag. |
 
 <details>
 <summary>NPM Permissions</summary>

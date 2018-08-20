@@ -2,17 +2,19 @@
 
 process.on('unhandledRejection', console.error);
 
+const truethy = value => ['true', true].includes(value);
 const {
     read,
     write,
     reset,
 } = require('edit-package');
+const {argv} = require('yargs');
 const {
     quiet = false,
     slack = {},
     _,
-} = require('yargs').argv;
-const testing = _.includes('testing');
+} = argv;
+const testing = truethy(argv.testing) || _.includes('testing');
 
 const git = require('async-git');
 const {
@@ -23,6 +25,7 @@ const {
 const {
     formatSlackMessage,
     getTag,
+    gitTag,
     isLatestBranch,
     postRequest,
     successMessage,
@@ -30,7 +33,7 @@ const {
 } = require('./lib');
 
 (async function() {
-    const narrate = testing || !['true', true].includes(quiet);
+    const narrate = testing || !truethy(quiet);
 
     try {
         const {
@@ -84,12 +87,14 @@ async function start() {
         },
         branch,
         author,
+        email,
         message,
         short,
     ] = await Promise.all([
         read(),
         git.branch,
         git.author,
+        git.email,
         git.message,
         git.short,
     ]);
@@ -100,7 +105,8 @@ async function start() {
         return {message: skip};
     }
 
-    const suffix = isLatestBranch(branch) ? '' : `-${short}`;
+    const latestBranch = isLatestBranch(branch);
+    const suffix = latestBranch ? '' : `-${short}`;
     const tag = getTag(branch, publishConfig.tag);
 
     const exist = await exists(name, `${version}${suffix}`);
@@ -120,8 +126,21 @@ async function start() {
 
     testing || await publish();
 
+    const output = [`Published version ${version}${suffix}`];
+
+    if (latestBranch && argv.gitTag) {
+        try {
+            await gitTag({version, message, author, email, publishConfig})
+
+            output.push(`Pushed git tag ${version}`)
+        } catch (error) {
+            console.error(error);
+            output.push(`Failed to push git tag ${version}`)
+        }
+    }
+
     return {
-        message: `Published version ${version}${suffix}`,
+        message: output.join('\n'),
         details: {
             name,
             version: `${version}${suffix}`,
