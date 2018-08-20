@@ -1,6 +1,6 @@
 {
   "name": "published",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "A state machine publishing packages to NPM",
   "author": "Fiverr SRE",
   "license": "MIT",
@@ -9,7 +9,6 @@
     "url": "git+https://github.com/fiverr/published.git"
   },
   "homepage": "https://fiverr.github.io/published/",
-  "main": "./lib/publish/index.js",
   "bin": {
     "published": "./index.js"
   },
