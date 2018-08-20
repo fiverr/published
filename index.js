@@ -88,6 +88,7 @@ async function start() {
         branch,
         author,
         email,
+        subject,
         message,
         short,
     ] = await Promise.all([
@@ -95,6 +96,7 @@ async function start() {
         git.branch,
         git.author,
         git.email,
+        git.subject,
         git.message,
         git.short,
     ]);
@@ -130,7 +132,7 @@ async function start() {
 
     if (latestBranch && truethyArg('gitTag')) {
         try {
-            await gitTag({version, message, author, email, publishConfig})
+            await gitTag({version, subject, author, email, publishConfig})
 
             output.push(`Pushed git tag ${version}`)
         } catch (error) {
