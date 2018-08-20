@@ -2,19 +2,19 @@
 
 process.on('unhandledRejection', console.error);
 
-const truethy = value => ['true', true].includes(value);
 const {
     read,
     write,
     reset,
 } = require('edit-package');
 const {argv} = require('yargs');
+const TRUETHY = ['true', true];
+const truethyArg = value => TRUETHY.includes(argv[value]);
 const {
-    quiet = false,
     slack = {},
     _,
 } = argv;
-const testing = truethy(argv.testing) || _.includes('testing');
+const testing = truethyArg('testing') || _.includes('testing');
 
 const git = require('async-git');
 const {
@@ -33,7 +33,7 @@ const {
 } = require('./lib');
 
 (async function() {
-    const narrate = testing || !truethy(quiet);
+    const narrate = testing || !truethyArg('quiet');
 
     try {
         const {
@@ -128,7 +128,7 @@ async function start() {
 
     const output = [`Published version ${version}${suffix}`];
 
-    if (latestBranch && argv.gitTag) {
+    if (latestBranch && truethyArg('gitTag')) {
         try {
             await gitTag({version, message, author, email, publishConfig})
 
