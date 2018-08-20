@@ -128,29 +128,30 @@ async function start() {
 
     testing || await publish();
 
-    const gitTagStatus = [];
-    const appendGitTagStatus = string => [string, ...gitTagStatus].join('\n');
+    let gitTagMessage;
 
     if (latestBranch && truethyArg('gitTag')) {
         try {
             await gitTag({version, subject, author, email, publishConfig});
 
-            gitTagStatus.push(`_Pushed git tag ${version}_`);
+            gitTagMessage = `Pushed git tag ${version}`;
         } catch (error) {
             console.error(error);
-            gitTagStatus.push(`_Failed to push git tag ${version}_`);
+            gitTagMessage = `Failed to push git tag ${version}`;
         }
     }
 
     return {
-        message: appendGitTagStatus(`Published version ${version}${suffix}`),
+        message: `Published version ${version}${suffix}\n${gitTagMessage || ''}`,
         details: {
             name,
             version: `${version}${suffix}`,
             tag,
             homepage,
             author,
-            message: appendGitTagStatus(message),
+            message,
+            footer: gitTagMessage,
+            footer_icon: gitTagMessage ? ':octocat:' : undefined,
             registry: publishConfig.registry,
         },
     };
