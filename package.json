@@ -1,6 +1,6 @@
 {
   "name": "published",
-  "version": "1.1.5",
+  "version": "1.2.0",
   "description": "A state machine publishing packages to NPM",
   "author": "Fiverr SRE",
   "license": "MIT",
@@ -9,11 +9,12 @@
     "url": "git+https://github.com/fiverr/published.git"
   },
   "homepage": "https://fiverr.github.io/published/",
+  "main": "index.js",
   "bin": {
-    "published": "./index.js"
+    "published": "./bin/index.js"
   },
   "scripts": {
-    "start": "node ./index.js --gitTag",
+    "start": "./bin/index.js --gitTag",
     "test": "mocha lib/**/spec.js",
     "lint": "eslint -c .eslintrc '**/*.js'"
   },

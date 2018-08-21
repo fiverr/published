@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 process.on('unhandledRejection', console.error);
 
 const {
@@ -7,40 +5,40 @@ const {
     write,
     reset,
 } = require('edit-package');
-const {argv} = require('yargs');
-const TRUETHY = ['true', true];
-const truethyArg = value => TRUETHY.includes(argv[value]);
-const {
-    slack = {},
-    _,
-} = argv;
-const testing = truethyArg('testing') || _.includes('testing');
-
 const git = require('async-git');
 const {
     config,
     exists,
     publish,
 } = require('jsnpm');
+
 const {
     formatSlackMessage,
     getTag,
     gitTag,
     isLatestBranch,
     postRequest,
-    successMessage,
     skipPublish,
+    successMessage,
+    truthy,
 } = require('./lib');
 
-(async function() {
-    const narrate = testing || !truethyArg('quiet');
+module.exports = async function({
+    slack,
+    quiet,
+    shouldGitTag,
+    testing,
+}) {
+    const narrate = testing || !truthy(quiet);
 
     try {
         const {
             message,
             details,
-        } = await start();
-
+        } = await start({
+            testing,
+            shouldGitTag,
+        });
 
         narrate && console.log(message);
         if (testing) { return; }
@@ -53,7 +51,7 @@ const {
                 status: 'pass',
                 channel: slack.channel,
             });
-            await slackNotification(body);
+            await slackNotification(slack, body);
         }
 
     } catch (error) {
@@ -66,14 +64,14 @@ const {
                 text: error.message,
                 channel: slack.channel,
             });
-            await slackNotification(body);
+            await slackNotification(slack, body);
         }
     } finally {
         reset();
     }
-})();
+}
 
-async function start() {
+async function start({testing, shouldGitTag}) {
     testing && console.log('Testing only, will not publish');
 
     const [
@@ -128,7 +126,7 @@ async function start() {
 
     let gitTagMessage;
 
-    if (latestBranch && truethyArg('gitTag')) {
+    if (latestBranch && truthy(shouldGitTag)) {
         try {
             await gitTag({version, subject, author, email, publishConfig});
 
@@ -155,8 +153,8 @@ async function start() {
     };
 }
 
-async function slackNotification(body) {
-    const {webhook = process.env.SLACK_WEBHOOK} = slack;
+async function slackNotification(slack, body) {
+    const {webhook} = slack;
 
     webhook && await postRequest(webhook, body);
 }

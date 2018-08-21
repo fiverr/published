@@ -7,6 +7,7 @@
 ```sh
 npx published
 ```
+
 ### Options
 
 | option | Description | Example
