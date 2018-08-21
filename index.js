@@ -1,8 +1,5 @@
-process.on('unhandledRejection', console.error);
-
 const {reset} = require('edit-package');
 const git = require('async-git');
-
 const {
     formatSlackMessage,
     slackNotification,
@@ -11,12 +8,16 @@ const {
 } = require('./lib');
 const publish = require('./publish');
 
-module.exports = async function({
-    slack,
-    quiet,
-    shouldGitTag,
-    testing,
-}) {
+/**
+ * print, publish, notify...
+ * @param  {String} [options.slack.webhook]
+ * @param  {String} [options.slack.channel]
+ * @param  {Boolean} [options.quiet]
+ * @param  {Boolean} [options.shouldGitTag]
+ * @param  {Boolean} [options.testing]
+ * @return {void}
+ */
+module.exports = async function({slack, quiet, shouldGitTag, testing}) {
     const narrate = testing || !truthy(quiet);
 
     try {

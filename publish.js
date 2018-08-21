@@ -8,7 +8,6 @@ const {
     exists,
     publish,
 } = require('jsnpm');
-
 const {
     getTag,
     gitTag,
@@ -17,6 +16,12 @@ const {
     truthy,
 } = require('./lib');
 
+/**
+ * Publish the package according to your opinion
+ * @param  {Boolean} [options.testing]
+ * @param  {Boolean} [options.shouldGitTag]
+ * @return {Object} details of the publishing event
+ */
 module.exports = async function({testing, shouldGitTag}) {
     testing && console.log('Testing only, will not publish');
 
@@ -70,18 +75,19 @@ module.exports = async function({testing, shouldGitTag}) {
 
     testing || await publish();
 
-    let gitTagMessage;
+    const gitTagMessage = await (async condition => {
+        if (!condition) { return undefined; }
 
-    if (latestBranch && truthy(shouldGitTag)) {
         try {
-            await gitTag({version, subject, author, email, publishConfig});
+            testing || await gitTag({version, subject, author, email, publishConfig});
 
-            gitTagMessage = `Pushed git tag ${version}`;
+            return `Pushed git tag ${version}`;
         } catch (error) {
             console.error(error);
-            gitTagMessage = `Failed to push git tag ${version}`;
+            return `Failed to push git tag ${version}`;
         }
-    }
+    })(latestBranch && truthy(shouldGitTag));
+
 
     return {
         message: `Published version ${version}${suffix}\n${gitTagMessage || ''}`,

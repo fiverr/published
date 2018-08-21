@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+process.on('unhandledRejection', console.error);
+
 const publish = require('../');
 const {argv} = require('yargs');
 const {
