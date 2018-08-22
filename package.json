@@ -1,6 +1,6 @@
 {
   "name": "published",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A state machine publishing packages to NPM",
   "author": "Fiverr SRE",
   "license": "MIT",
@@ -16,7 +16,7 @@
   "scripts": {
     "start": "./bin/index.js --gitTag",
     "test": "mocha lib/**/spec.js",
-    "lint": "eslint -c .eslintrc '**/*.js'"
+    "lint": "eslint -c .eslintrc '*.js' '**/*.js'"
   },
   "dependencies": {
     "async-execute": "^1.0.0",

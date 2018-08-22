@@ -11,6 +11,7 @@ const {
 const {
     getTag,
     gitTag,
+    gitTagMessage,
     isLatestBranch,
     skipPublish,
     truthy,
@@ -71,26 +72,17 @@ module.exports = async function({testing, shouldGitTag}) {
     await write({
         version: `${version}${suffix}`,
         publishConfig: { tag },
-    })
+    });
 
     testing || await publish();
 
-    const gitTagMessage = await (async condition => {
-        if (!condition) { return undefined; }
-
-        try {
-            testing || await gitTag({version, subject, author, email, publishConfig});
-
-            return `Pushed git tag ${version}`;
-        } catch (error) {
-            console.error(error);
-            return `Failed to push git tag ${version}`;
-        }
-    })(latestBranch && truthy(shouldGitTag));
-
+    const footer = await gitTagMessage(
+        latestBranch && truthy(shouldGitTag),
+        async () => testing || await gitTag({version, subject, author, email, publishConfig})
+    );
 
     return {
-        message: `Published version ${version}${suffix}\n${gitTagMessage || ''}`,
+        message: `Published version ${version}${suffix}\n${footer || ''}`,
         details: {
             name,
             version: `${version}${suffix}`,
@@ -98,9 +90,9 @@ module.exports = async function({testing, shouldGitTag}) {
             homepage,
             author,
             message,
-            footer: gitTagMessage,
-            footer_icon: gitTagMessage ? ':octocat:' : undefined,
+            footer,
+            footer_icon: footer ? 'https://assets-cdn.github.com/favicon.ico' : undefined,
             registry: publishConfig.registry,
         },
     };
-}
+};
