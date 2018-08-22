@@ -14,7 +14,6 @@ const {
     gitTagMessage,
     isLatestBranch,
     skipPublish,
-    truthy,
 } = require('./lib');
 
 /**
@@ -77,7 +76,7 @@ module.exports = async function({testing, shouldGitTag}) {
     testing || await publish();
 
     const footer = await gitTagMessage(
-        latestBranch && truthy(shouldGitTag),
+        latestBranch && shouldGitTag,
         async () => testing || await gitTag({version, subject, author, email, publishConfig})
     );
 

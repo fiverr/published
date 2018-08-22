@@ -16,7 +16,7 @@ npx published
 | slack.webhook | Notify on Slack | `npx published --slack.webhook $SLACK_WEBHOOK`
 | slack.channel | Change Slack webhook channel | `npx published --slack.webhook $SLACK_WEBHOOK --slack.channel "#publish"`
 | quiet | Silent outputs and notifications | `npx published --quiet`
-| gitTag | Push a tag to git, Only from `master` or `latest` branch | `npx published --gitTag`
+| git-tag | Push a tag to git, Only from `master` or `latest` branch | `npx published --git-tag`
 
 ## TL;DR
 | Branch type | action |

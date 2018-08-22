@@ -14,7 +14,7 @@
     "published": "./bin/index.js"
   },
   "scripts": {
-    "start": "./bin/index.js --gitTag",
+    "start": "./bin/index.js --git-tag",
     "test": "mocha lib/**/spec.js",
     "lint": "eslint -c .eslintrc '*.js' '**/*.js'"
   },

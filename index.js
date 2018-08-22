@@ -4,7 +4,6 @@ const {
     formatSlackMessage,
     slackNotification,
     successMessage,
-    truthy,
 } = require('./lib');
 const publish = require('./publish');
 
@@ -18,7 +17,7 @@ const publish = require('./publish');
  * @return {void}
  */
 module.exports = async function({slack, quiet, shouldGitTag, testing}) {
-    const narrate = testing || !truthy(quiet);
+    const narrate = testing || !quiet;
 
     try {
         const {
