@@ -58,4 +58,4 @@ module.exports = async function({slack, quiet, shouldGitTag, testing}) {
     } finally {
         reset();
     }
-}
+};
