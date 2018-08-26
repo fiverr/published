@@ -8,7 +8,7 @@
     "type": "git",
     "url": "git+https://github.com/fiverr/published.git"
   },
-  "homepage": "https://fiverr.github.io/published/",
+  "homepage": "https://published.js.org/",
   "main": "index.js",
   "bin": {
     "published": "./bin/index.js"
