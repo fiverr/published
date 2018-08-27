@@ -19,9 +19,6 @@ const publish = require('./publish');
 module.exports = async function({slack = {}, quiet, shouldGitTag, testing}) {
     const narrate = testing || !quiet;
 
-    // Support SLACK_WEBHOOK env variable
-    slack.webhook = slack.webhook || process.env.SLACK_WEBHOOK;
-
     try {
         const {
             message,
