@@ -9,6 +9,7 @@ const {
     publish,
 } = require('jsnpm');
 const {
+    color,
     getTag,
     gitTag,
     gitTagMessage,
@@ -74,14 +75,17 @@ module.exports = async function({testing, shouldGitTag}) {
     });
 
     testing || await publish();
+    const attachments = [];
 
-    const footer = await gitTagMessage(
+    const [text, success] = await gitTagMessage(
         latestBranch && shouldGitTag,
         async () => testing || await gitTag({version, subject, author, email, publishConfig})
     );
 
+    text && attachments.push({text, color: color(success)});
+
     return {
-        message: `Published version ${version}${suffix}\n${footer || ''}`,
+        message: `Published version ${version}${suffix}`,
         details: {
             name,
             version: `${version}${suffix}`,
@@ -89,8 +93,7 @@ module.exports = async function({testing, shouldGitTag}) {
             homepage,
             author,
             message,
-            footer,
-            footer_icon: footer ? 'https://assets-cdn.github.com/favicon.ico' : undefined,
+            attachments,
             registry: publishConfig.registry,
         },
     };
