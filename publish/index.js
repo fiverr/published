@@ -6,6 +6,8 @@ const git = require('async-git');
 const {
     config,
     exists,
+    getVersion,
+    setTag,
     publish,
 } = require('jsnpm');
 const {
@@ -15,7 +17,7 @@ const {
     gitTagMessage,
     isLatestBranch,
     skipPublish,
-} = require('./lib');
+} = require('../lib');
 
 /**
  * Publish the package according to your opinion
@@ -34,6 +36,7 @@ module.exports = async function({testing, shouldGitTag}) {
             publishConfig = {},
         },
         branch,
+        comitter,
         author,
         email,
         subject,
@@ -42,6 +45,7 @@ module.exports = async function({testing, shouldGitTag}) {
     ] = await Promise.all([
         read(),
         git.branch,
+        git.comitter,
         git.author,
         git.email,
         git.subject,
@@ -57,12 +61,20 @@ module.exports = async function({testing, shouldGitTag}) {
 
     const latestBranch = isLatestBranch(branch);
     const suffix = latestBranch ? '' : `-${short}`;
+    const fullVersion = `${version}${suffix}`;
     const tag = getTag(branch, publishConfig.tag);
-
-    const exist = await exists(name, `${version}${suffix}`);
+    const exist = await exists(name, fullVersion);
+    let action = publish;
+    let cliMsg = `Published version ${fullVersion}`;
 
     if (exist) {
-        return {message: `${name}@${version}${suffix} already published`};
+
+        if ((await getVersion(name, tag)) === fullVersion) {
+            return {message: `${name}@${fullVersion} already published`};
+        } else {
+            action = () => setTag(name, fullVersion, tag);
+            cliMsg = `Set tag ${tag} to ${fullVersion}`;
+        }
     }
 
     // Configure other registries where applicable
@@ -70,11 +82,11 @@ module.exports = async function({testing, shouldGitTag}) {
 
     // Modify version and tag according to previous decisions
     await write({
-        version: `${version}${suffix}`,
+        version: fullVersion,
         publishConfig: { tag },
     });
 
-    testing || await publish();
+    testing || await action();
     const attachments = [];
 
     const [text, success] = await gitTagMessage(
@@ -85,12 +97,13 @@ module.exports = async function({testing, shouldGitTag}) {
     text && attachments.push({text, color: color(success)});
 
     return {
-        message: `Published version ${version}${suffix}`,
+        message: cliMsg,
         details: {
             name,
-            version: `${version}${suffix}`,
+            version: fullVersion,
             tag,
             homepage,
+            comitter,
             author,
             message,
             attachments,
