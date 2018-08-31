@@ -16,47 +16,42 @@ describe('publish', async() => {
     afterEach(_afterEach);
     after(_after);
 
-    it('Should publish a clean version on master', async() => {
-        GIT_DETAILS.branch = 'master';
-        PKG_DETAILS.version = '1.0.0';
+    [
+        ['master', '1.0.0'],
+        ['latest', '1.0.0'],
+    ].forEach(([branch, version]) => {
+        it(`Should publish a clean version (${version}) on ${branch}`, async() => {
+            GIT_DETAILS.branch = branch;
+            PKG_DETAILS.version = version;
 
-        let published = false;
-        NPM_FUNCTIONS.publish = () => { published = true; };
+            let published = false;
+            NPM_FUNCTIONS.publish = () => { published = true; };
 
-        const publish = require('.');
-        const result = await publish(OPTIONS);
+            const publish = require('.');
+            const result = await publish(OPTIONS);
 
-        expect(published).to.be.true;
-        expect(result.message.toLowerCase()).to.contain('published');
-        expect(result.details).to.be.an('object');
+            expect(published).to.be.true;
+            expect(result.message.toLowerCase()).to.contain('published');
+            expect(result.details).to.be.an('object');
+        });
     });
 
-    it('Should publish a clean version on "latest"', async() => {
-        GIT_DETAILS.branch = 'latest';
-        PKG_DETAILS.version = '1.0.0';
+    [
+        ['feature-branch', '1.0.0'],
+        ['next', '1.0.0'],
+    ].forEach(([branch, version]) => {
+        it(`Should do nothing with clean version (${version}) on feature branch (${branch})`, async() => {
+            GIT_DETAILS.branch = branch;
+            PKG_DETAILS.version = version;
+            let published = false;
+            NPM_FUNCTIONS.publish = () => { published = true; };
 
-        let published = false;
-        NPM_FUNCTIONS.publish = () => { published = true; };
+            const publish = require('.');
+            const result = await publish(OPTIONS);
 
-        const publish = require('.');
-        const result = await publish(OPTIONS);
-
-        expect(published).to.be.true;
-        expect(result.message.toLowerCase()).to.contain('published');
-        expect(result.details).to.be.an('object');
-    });
-
-    it('Should do nothing with clean version on feature branch', async() => {
-        GIT_DETAILS.branch = 'feature-branch';
-        PKG_DETAILS.version = '1.0.0';
-        let published = false;
-        NPM_FUNCTIONS.publish = () => { published = true; };
-
-        const publish = require('.');
-        const result = await publish(OPTIONS);
-
-        expect(published).to.be.false;
-        expect(result.message.toLowerCase()).to.contain('does not require publishing');
+            expect(published).to.be.false;
+            expect(result.message.toLowerCase()).to.contain('does not require publishing');
+        });
     });
 
     it('Should skip publishing or tagging for feature branch with a clean version', async() => {
