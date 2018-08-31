@@ -89,17 +89,14 @@ function _beforeEach() {
     delete require.cache[require.resolve('../publish')];
 }
 
-const log = console.log;
-function _afterEach() {
-    console.log = log;
-}
+function _afterEach() {}
 
 function _after() {
     [
         'edit-package',
         'async-git',
         'jsnpm',
-        '../publish',
+        '.',
     ].forEach(pkg => {
         delete require.cache[require.resolve(pkg)];
     });

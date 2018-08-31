@@ -15,7 +15,7 @@
   },
   "scripts": {
     "start": "./bin/index.js --git-tag",
-    "test": "mocha lib/**/spec.js publish/spec.js",
+    "test": "mocha spec.js publish/spec.js lib/**/spec.js",
     "lint": "eslint -c .eslintrc '*.js' '**/*.js'"
   },
   "dependencies": {

@@ -7,7 +7,7 @@ const {
     _beforeEach,
     _afterEach,
     _after,
-} = require('../test/helpers');
+} = require('./spec-helpers');
 const OPTIONS = {testing: false, shouldGitTag: false};
 
 describe('publish', async() => {
