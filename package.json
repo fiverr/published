@@ -9,13 +9,13 @@
     "url": "git+https://github.com/fiverr/published.git"
   },
   "homepage": "https://published.js.org/",
-  "main": "index.js",
+  "main": "./app/index.js",
   "bin": {
     "published": "./bin/index.js"
   },
   "scripts": {
     "start": "./bin/index.js --git-tag",
-    "test": "mocha spec.js publish/spec.js lib/**/spec.js",
+    "test": "find . -name 'spec.js' -not -path './node_modules/*' | xargs mocha",
     "lint": "eslint -c .eslintrc '*.js' '**/*.js'"
   },
   "dependencies": {

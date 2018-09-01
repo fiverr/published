@@ -4,7 +4,7 @@ const {
     formatSlackMessage,
     slackNotification,
     successMessage,
-} = require('./lib');
+} = require('../lib');
 const publish = require('./publish');
 
 /**

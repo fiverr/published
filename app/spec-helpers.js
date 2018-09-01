@@ -16,7 +16,7 @@ function _before() {
         (...args) => dummies.publish(...args)
     );
     fake(
-        './lib/slackNotification',
+        '../lib/slackNotification',
         (...args) => dummies.slack(...args)
     );
 }
@@ -37,7 +37,7 @@ function _after() {
     [
         'edit-package',
         './publish',
-        './lib/slackNotification',
+        '../lib/slackNotification',
     ].forEach(pkg => {
         delete require.cache[require.resolve(pkg)];
     });

@@ -17,7 +17,7 @@ const {
     gitTagMessage,
     isLatestBranch,
     skipPublish,
-} = require('../lib');
+} = require('../../lib');
 
 /**
  * Publish the package according to your opinion

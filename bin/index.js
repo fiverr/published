@@ -2,7 +2,7 @@
 
 process.on('unhandledRejection', console.error);
 
-const publish = require('../');
+const publish = require('../app');
 const truthy = require('../lib/truthy');
 const {argv} = require('yargs');
 const {
@@ -10,7 +10,9 @@ const {
     _,
 } = argv;
 
-slack.webhook = slack.webhook || process.env.SLACK_WEBHOOK;
+if (!slack.webhook && process.env.SLACK_WEBHOOK) {
+    slack.webhook = process.env.SLACK_WEBHOOK;
+}
 
 publish({
     slack,

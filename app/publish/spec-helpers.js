@@ -86,7 +86,7 @@ function _beforeEach() {
     Object.assign(NPM_FUNCTIONS, NPM_FUNCTIONS_DEFAULTS);
     Object.assign(GIT_DETAILS, GIT_DETAILS_DEFAULTS);
     Object.assign(PKG_DETAILS, PKG_DETAILS_DEFAULTS);
-    delete require.cache[require.resolve('../publish')];
+    delete require.cache[require.resolve('.')];
 }
 
 function _afterEach() {}
