@@ -16,7 +16,7 @@
   "scripts": {
     "start": "./bin/index.js --git-tag",
     "test": "find . -name 'spec.js' -not -path './node_modules/*' | xargs mocha",
-    "lint": "eslint -c .eslintrc '*.js' '**/*.js'"
+    "lint": "eslint -c .eslintrc '**/*.js'"
   },
   "dependencies": {
     "async-execute": "^1.0.0",
