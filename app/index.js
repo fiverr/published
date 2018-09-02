@@ -35,8 +35,6 @@ module.exports = async function({slack = {}, quiet, shouldGitTag, testing} = {})
         if (narrate) {
             const body = formatSlackMessage({
                 ...successMessage(details),
-                username: details.comitter,
-                status: 'pass',
                 channel: slack.channel,
             });
             await slackNotification(slack, body);
@@ -46,7 +44,7 @@ module.exports = async function({slack = {}, quiet, shouldGitTag, testing} = {})
         if (narrate) {
             console.error(error);
             const body = formatSlackMessage({
-                username: await git.comitter,
+                username: await git.author,
                 status: 'fail',
                 pretext: `An error has occured trying to publish from ${await git.name} repository`,
                 text: error.message,

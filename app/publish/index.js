@@ -36,7 +36,6 @@ module.exports = async function({testing, shouldGitTag}) {
             publishConfig = {},
         },
         branch,
-        comitter,
         author,
         email,
         subject,
@@ -45,7 +44,6 @@ module.exports = async function({testing, shouldGitTag}) {
     ] = await Promise.all([
         read(),
         git.branch,
-        git.comitter,
         git.author,
         git.email,
         git.subject,
@@ -103,7 +101,6 @@ module.exports = async function({testing, shouldGitTag}) {
             version: fullVersion,
             tag,
             homepage,
-            comitter,
             author,
             message,
             attachments,

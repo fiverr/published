@@ -19,7 +19,6 @@ const NPM_FUNCTIONS_DEFAULTS = {
 const GIT_DETAILS = {};
 const GIT_DETAILS_DEFAULTS = {
     branch:   'master',
-    comitter: 'the comitter',
     author:   'the author',
     email:    'author@email.net',
     subject:  'Some subject',
