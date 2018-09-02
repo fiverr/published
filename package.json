@@ -1,6 +1,6 @@
 {
   "name": "published",
-  "version": "1.3.0-alpha",
+  "version": "1.3.0",
   "description": "Opinionated NPM publish program",
   "author": "Fiverr SRE",
   "license": "MIT",
