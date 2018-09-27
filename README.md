@@ -16,6 +16,7 @@ npx published
 | slack.channel | Change Slack webhook channel | `npx published --slack.webhook $SLACK_WEBHOOK --slack.channel "#publish"`
 | quiet | Silent outputs and notifications | `npx published --quiet`
 | git-tag | Push a tag to git, Only from `master` or `latest` branch | `npx published --git-tag`
+| then | Shell command to execute if a non RC version has been published | `npx published bash\ ./do-more.sh`
 
 ## TL;DR
 | Branch type | action |

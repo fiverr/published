@@ -1,5 +1,6 @@
 const {reset} = require('edit-package');
 const git = require('async-git');
+const execute = require('async-execute');
 const {
     formatSlackMessage,
     slackNotification,
@@ -14,9 +15,10 @@ const publish = require('./publish');
  * @param  {Boolean} [options.quiet]
  * @param  {Boolean} [options.shouldGitTag]
  * @param  {Boolean} [options.testing]
+ * @param  {String}  [options.then]
  * @return {void}
  */
-module.exports = async function({slack = {}, quiet, shouldGitTag, testing} = {}) {
+module.exports = async function({slack = {}, quiet, shouldGitTag, testing, then} = {}) {
     const narrate = testing || (quiet !== true);
 
     try {
@@ -39,6 +41,9 @@ module.exports = async function({slack = {}, quiet, shouldGitTag, testing} = {})
             });
             await slackNotification(slack, body);
         }
+
+        const {latestBranch, published} = details;
+        then && latestBranch && published && console.log(await execute(then));
 
     } catch (error) {
         if (narrate) {

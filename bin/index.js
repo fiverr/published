@@ -14,9 +14,14 @@ if (!slack.webhook && process.env.SLACK_WEBHOOK) {
     slack.webhook = process.env.SLACK_WEBHOOK;
 }
 
-publish({
-    slack,
-    quiet: truthy(argv.quiet),
-    testing: truthy(argv.testing) || _.includes('testing'),
-    shouldGitTag: truthy(argv.gitTag),
-});
+publish(
+    Object.assign(
+        argv,
+        {
+            slack,
+            quiet: truthy(argv.quiet),
+            testing: truthy(argv.testing) || _.includes('testing'),
+            shouldGitTag: truthy(argv.gitTag),
+        }
+    )
+);
