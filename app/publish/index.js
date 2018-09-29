@@ -106,7 +106,6 @@ module.exports = async function({testing, shouldGitTag}) {
             attachments,
             registry: publishConfig.registry,
             published: action === publish,
-            latestBranch,
         },
     };
 };

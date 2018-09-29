@@ -74,15 +74,4 @@ describe('bin', () => {
         require('.');
         expect(called).to.be.true;
     });
-
-    it('Should pass in any additional parameters as is', () => {
-        process.argv = 'node mocha --made-up-parameter something'.split(' ');
-        let called = false;
-        dummy.index = ({madeUpParameter}) => {
-            called = true;
-            expect(madeUpParameter).to.equal('something');
-        };
-        require('.');
-        expect(called).to.be.true;
-    });
 });
