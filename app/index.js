@@ -21,13 +21,15 @@ module.exports = async function({slack = {}, quiet, shouldGitTag, testing} = {})
     let result = null;
 
     try {
-        const {
-            message,
-            details,
-        } = await publish({
+        result = await publish({
             testing,
             shouldGitTag,
         });
+
+        const {
+            message,
+            details,
+        } = result;
 
         narrate && console.log(message);
 
@@ -38,7 +40,6 @@ module.exports = async function({slack = {}, quiet, shouldGitTag, testing} = {})
             });
             await slackNotification(slack, body);
         }
-        result = details;
     } catch (error) {
         if (narrate) {
             console.error(error);

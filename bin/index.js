@@ -16,13 +16,13 @@ if (!slack.webhook && process.env.SLACK_WEBHOOK) {
 }
 
 (async() => {
-    const result = await publish({
+    const {details = {}} = await publish({
         slack,
         quiet: truthy(argv.quiet),
         testing: truthy(argv.testing) || _.includes('testing'),
         shouldGitTag: truthy(argv.gitTag),
     });
-    const {published, tag} = result;
+    const {published, tag} = details;
     const {onPublish} = argv;
     const onTag = argv[`on-${tag}`];
     published && onPublish && console.log(await execute(onPublish));

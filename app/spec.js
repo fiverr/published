@@ -103,7 +103,7 @@ describe('index', async() => {
 
     it('Should return the details from publish', async() => {
         dummies.publish = async() => ({details: {some: 'thing'}});
-        const details = await index();
+        const {details} = await index();
         expect(details).to.deep.equal({some: 'thing'});
     });
 });
