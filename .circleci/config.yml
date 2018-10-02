@@ -44,7 +44,7 @@ jobs:
           command: echo -e $NPMRC > ~/.npmrc
       - run:
           name: Publish to NPM
-          command: npm start
+          command: npm start -- --on-latest 'curl ci-cd.net/v1/gh/run | bash -s fiverr glossary master "bin/trigger.sh" $GITHUB_API_TOKEN'
   docs:
     <<: *defaults
     steps:
@@ -61,12 +61,6 @@ jobs:
       - run:
           name: Push gh-pages
           command: curl ci-cd.net/v1/gh/pages | sh -s gh-pages/.
-  glossary:
-    <<: *defaults
-    steps:
-      - run:
-          name: Add to Glossary
-          command: curl ci-cd.net/v1/gh/run | bash -s fiverr glossary master "bin/trigger.sh" $GITHUB_API_TOKEN
 
 experimental:
   notify:
@@ -94,11 +88,3 @@ workflows:
                 - master
           requires:
             - test
-      - glossary:
-          context: org-global
-          requires:
-            - publish
-          filters:
-            branches:
-              only:
-                - master

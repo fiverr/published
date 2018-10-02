@@ -18,28 +18,28 @@ const publish = require('./publish');
  */
 module.exports = async function({slack = {}, quiet, shouldGitTag, testing} = {}) {
     const narrate = testing || (quiet !== true);
+    let result = null;
 
     try {
-        const {
-            message,
-            details,
-        } = await publish({
+        result = await publish({
             testing,
             shouldGitTag,
         });
 
-        narrate && console.log(message);
-        if (testing) { return; }
-        if (!details) { return; }
+        const {
+            message,
+            details,
+        } = result;
 
-        if (narrate) {
+        narrate && console.log(message);
+
+        if (narrate && details && !testing) {
             const body = formatSlackMessage({
                 ...successMessage(details),
                 channel: slack.channel,
             });
             await slackNotification(slack, body);
         }
-
     } catch (error) {
         if (narrate) {
             console.error(error);
@@ -55,4 +55,5 @@ module.exports = async function({slack = {}, quiet, shouldGitTag, testing} = {})
     } finally {
         reset();
     }
+    return result || {};
 };

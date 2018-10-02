@@ -54,6 +54,45 @@ describe('publish', async() => {
         });
     });
 
+
+    it('Should return a details object', async() => {
+        GIT_DETAILS.branch = 'master';
+        PKG_DETAILS.version = '1.0.0';
+
+        NPM_FUNCTIONS.publish = () => null;
+        const publish = require('.');
+        const result = await publish(OPTIONS);
+        expect(result.details).to.have.all.keys([
+            'name',
+            'version',
+            'tag',
+            'homepage',
+            'author',
+            'message',
+            'attachments',
+            'registry',
+            'published',
+        ]);
+        const {
+            name,
+            version,
+            tag,
+            homepage,
+            author,
+            message,
+            attachments,
+            published,
+        } = result.details;
+        expect(name).to.equal('fake-package-name');
+        expect(version).to.equal('1.0.0');
+        expect(tag).to.equal('latest');
+        expect(homepage).to.equal('https://www.website.net');
+        expect(author).to.equal('the author');
+        expect(message).to.equal('Some subject\n\nDid a thing');
+        expect(attachments).to.be.an('array');
+        expect(published).to.be.a('boolean');
+    });
+
     it('Should skip publishing or tagging for feature branch with a clean version', async() => {
         GIT_DETAILS.branch = 'master';
         PKG_DETAILS.version = '1.0.0';
