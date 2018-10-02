@@ -101,9 +101,9 @@ describe('index', async() => {
         expect(slackCalled).to.equal(0);
     });
 
-    it('Should return the details from publish', async() => {
-        dummies.publish = async() => ({details: {some: 'thing'}});
-        const {details} = await index();
-        expect(details).to.deep.equal({some: 'thing'});
+    it('Should pipe the result of publish function', async() => {
+        dummies.publish = async() => ({something: {any: 'thing'}});
+        const result = await index();
+        expect(result).to.deep.equal({something: {any: 'thing'}});
     });
 });
