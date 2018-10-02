@@ -51,6 +51,16 @@
 <td>Push a tag to git, Only from <code>master</code> or <code>latest</code> branch</td>
 <td><code>npx published --git-tag</code></td>
 </tr>
+<tr>
+<td>on-publish</td>
+<td>Execute shell command after a publish event</td>
+<td><code>npx published --on-publish bash\ ./do-more.sh</code></td>
+</tr>
+<tr>
+<td>on-\<tag></td>
+<td>Execute shell command after a publish event with this tag (executes after on-publish)</td>
+<td><code>npx published --on-latest &#39;echo &quot;Published!&quot;&#39;</code></td>
+</tr>
 </tbody>
 </table>
 <h2 id="tl-dr">TL;DR</h2>
