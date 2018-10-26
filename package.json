@@ -2,6 +2,14 @@
   "name": "published",
   "version": "1.4.0",
   "description": "Opinionated NPM publish program",
+  "keywords": [
+    "npm",
+    "publish",
+    "ci-cd",
+    "automation",
+    "cli",
+    "npx"
+  ],
   "author": "Fiverr SRE",
   "license": "MIT",
   "repository": {
