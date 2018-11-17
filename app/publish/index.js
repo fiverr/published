@@ -23,9 +23,10 @@ const {
  * Publish the package according to your opinion
  * @param  {Boolean} [options.testing]
  * @param  {Boolean} [options.shouldGitTag]
+ * @param  {String} [options.latestBranch]
  * @return {Object} details of the publishing event
  */
-module.exports = async function({testing, shouldGitTag}) {
+module.exports = async function({testing, shouldGitTag, latestBranch}) {
     testing && console.log('Testing only, will not publish');
 
     const [
@@ -51,14 +52,14 @@ module.exports = async function({testing, shouldGitTag}) {
         git.short,
     ]);
 
-    const skip = skipPublish(version, branch);
+    const onLatestBranch = isLatestBranch(branch, latestBranch);
+    const skip = skipPublish(version, onLatestBranch);
 
     if (skip) {
         return {message: skip};
     }
 
-    const latestBranch = isLatestBranch(branch);
-    const suffix = latestBranch ? '' : `-${short}`;
+    const suffix = onLatestBranch ? '' : `-${short}`;
     const fullVersion = `${version}${suffix}`;
     const tag = getTag(branch, publishConfig.tag);
     const exist = await exists(name, fullVersion);
@@ -88,7 +89,7 @@ module.exports = async function({testing, shouldGitTag}) {
     const attachments = [];
 
     const [text, success] = await gitTagMessage(
-        latestBranch && shouldGitTag,
+        onLatestBranch && shouldGitTag,
         async () => testing || await gitTag({version, subject, author, email, publishConfig})
     );
 

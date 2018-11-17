@@ -15,9 +15,10 @@ npx published
 | slack.webhook | Notify on Slack | `npx published --slack.webhook $SLACK_WEBHOOK`
 | slack.channel | Change Slack webhook channel | `npx published --slack.webhook $SLACK_WEBHOOK --slack.channel "#publish"`
 | quiet | Silent outputs and notifications | `npx published --quiet`
-| git-tag | Push a tag to git, Only from `master` or `latest` branch | `npx published --git-tag`
+| git-tag | Push a tag to git, Only from `master`(latest-branch) or `latest` branch | `npx published --git-tag`
 | on-publish | Execute shell command after a publish event | `npx published --on-publish bash\ ./do-more.sh`
 | on-&lt;tag&gt; | Execute shell command after a publish event with this tag (executes after on-publish) | `npx published --on-latest 'echo "Published!"'`
+| latest-branch | Branch that is considered latest (default is 'master') | `npx published --latest-branch stable`
 
 ## TL;DR
 | Branch type | action |
@@ -47,6 +48,8 @@ echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
 - Only publish clean semver versions, no pre-release
 - Publish versions to tag "latest" (or publishConfig.tag from package.json)
 
+> \* using `latest-branch` option will switch its behaviour with master
+
 #### "latest" branch
 - Same as master, but will ignore publishConfig.tag setting.<br>Use this if your master branch points to "next" through publishConfig.tag
 
@@ -61,5 +64,7 @@ echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
 | `master`, `latest` | `1.3.0` | `1.3.0` | `latest`
 | `master`, `latest` | `1.3.0-beta` | Throws Error | N/A
 | `master`, `latest` | `1.3.0-rc` | Throws Error | N/A
+
+> \* using `latest-branch` option will switch its behaviour with master
 
 Package icon by Julien Deveaux from the Noun Project
