@@ -46,7 +46,7 @@
 </tr>
 <tr>
 <td>git-tag</td>
-<td>Push a tag to git, Only from <code>master</code> or <code>latest</code> branch</td>
+<td>Push a tag to git, Only from <code>master</code>(latest-branch) or <code>latest</code> branch</td>
 <td><code>npx published --git-tag</code></td>
 </tr>
 <tr>
@@ -58,6 +58,11 @@
 <td>on-&lt;tag&gt;</td>
 <td>Execute shell command after a publish event with this tag (executes after on-publish)</td>
 <td><code>npx published --on-latest &#39;echo &quot;Published!&quot;&#39;</code></td>
+</tr>
+<tr>
+<td>latest-branch</td>
+<td>Branch that is considered latest (default is &#39;master&#39;)</td>
+<td><code>npx published --latest-branch stable</code></td>
 </tr>
 </tbody></table>
 <h2 id="tl-dr">TL;DR</h2>
@@ -96,6 +101,9 @@ In order to publish an NPM package as a privileged user, create an NPM configura
 <li>Only publish clean semver versions, no pre-release</li>
 <li>Publish versions to tag &quot;latest&quot; (or publishConfig.tag from package.json)</li>
 </ul>
+<blockquote>
+<p>* using <code>latest-branch</code> option will switch its behaviour with master</p>
+</blockquote>
 <h4 id="latest-branch">&quot;latest&quot; branch</h4>
 <ul>
 <li>Same as master, but will ignore publishConfig.tag setting.<br>Use this if your master branch points to &quot;next&quot; through publishConfig.tag</li>
@@ -153,6 +161,9 @@ In order to publish an NPM package as a privileged user, create an NPM configura
 <td>N/A</td>
 </tr>
 </tbody></table>
+<blockquote>
+<p>* using <code>latest-branch</code> option will switch its behaviour with master</p>
+</blockquote>
 <p>Package icon by Julien Deveaux from the Noun Project</p>
 	</body>
 </html>
