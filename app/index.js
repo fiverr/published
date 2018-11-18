@@ -32,15 +32,29 @@ module.exports = async function({slack = {}, quiet, shouldGitTag, testing, lates
             details,
         } = result;
 
-        narrate && console.log(message);
+        if (!narrate) {
+            return;
+        }
 
-        if (narrate && details && !testing) {
+        if (details) {
             const body = formatSlackMessage({
                 ...successMessage(details),
                 channel: slack.channel,
             });
-            await slackNotification(slack, body);
+
+            if (testing) {
+                console.log(
+                    'Slack message:',
+                    '\n',
+                    JSON.stringify(body, null, 2)
+                );
+            } else {
+                await slackNotification(slack, body);
+            }
         }
+
+        console.log(message);
+
     } catch (error) {
         if (narrate) {
             console.error(error);
