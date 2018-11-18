@@ -16,7 +16,7 @@ const publish = require('./publish');
  * @param  {Boolean} [options.testing]
  * @return {void}
  */
-module.exports = async function({slack = {}, quiet, shouldGitTag, testing} = {}) {
+module.exports = async function({slack = {}, quiet, shouldGitTag, testing, latestBranch} = {}) {
     const narrate = testing || (quiet !== true);
     let result = null;
 
@@ -24,6 +24,7 @@ module.exports = async function({slack = {}, quiet, shouldGitTag, testing} = {})
         result = await publish({
             testing,
             shouldGitTag,
+            latestBranch,
         });
 
         const {

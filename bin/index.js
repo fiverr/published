@@ -6,6 +6,7 @@ const execute = require('async-execute');
 const publish = require('../app');
 const truthy = require('../lib/truthy');
 const {argv} = require('yargs');
+const {name, version} = require('../package.json');
 const {
     slack = {},
     _,
@@ -16,11 +17,14 @@ if (!slack.webhook && process.env.SLACK_WEBHOOK) {
 }
 
 (async() => {
+    console.log(`${name} v${version}`);
+
     const {details = {}} = await publish({
         slack,
         quiet: truthy(argv.quiet),
         testing: truthy(argv.testing) || _.includes('testing'),
         shouldGitTag: truthy(argv.gitTag),
+        latestBranch: argv.latestBranch,
     });
     const {published, tag} = details;
     const {onPublish} = argv;
