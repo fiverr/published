@@ -16,7 +16,7 @@ jobs:
           command: echo -e $NPMRC > ~/.npmrc
       - run:
           name: Install dependencies
-          command: npm i
+          command: "[ -d node_modules ] || npm i"
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
