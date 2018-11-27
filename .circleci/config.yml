@@ -3,7 +3,15 @@ defaults: &defaults
   docker:
     - image: circleci/node:8
 
-version: 2
+commands:
+  npmrc:
+    description: Create NPM credentials file
+    steps:
+      - run:
+          name: Create NPM credentials file
+          command: echo -e $NPMRC > ~/.npmrc
+
+version: 2.1
 jobs:
   install:
     <<: *defaults
@@ -11,9 +19,7 @@ jobs:
       - checkout
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
-      - run:
-          name: Set npmrc credentials
-          command: echo -e $NPMRC > ~/.npmrc
+      - npmrc
       - run:
           name: Install dependencies
           command: "[ -d node_modules ] || npm i"
@@ -39,9 +45,7 @@ jobs:
       - checkout
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
-      - run:
-          name: Set npmrc credentials
-          command: echo -e $NPMRC > ~/.npmrc
+      - npmrc
       - run:
           name: Publish to NPM
           command: npm start -- --on-latest 'curl ci-cd.net/v1/gh/run | bash -s fiverr glossary master "bin/trigger.sh" $GITHUB_API_TOKEN'
@@ -69,7 +73,7 @@ experimental:
         - master
 
 workflows:
-  version: 2
+  version: 2.1
   ci-cd:
     jobs:
       - install:
