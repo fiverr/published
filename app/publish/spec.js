@@ -126,7 +126,7 @@ describe('publish', async() => {
     it('Should change tag if tagName specified', async() => {
         NPM_FUNCTIONS.exists = () => true;
         NPM_FUNCTIONS.publish = () => {};
-        NPM_FUNCTIONS.setTag = () => {};
+        NPM_FUNCTIONS.setTag = (pkg, version, tag) => expect(tag).to.equal('next');
 
         const publish = require('.');
         const result = await publish({...OPTIONS, tagName: 'next'});
