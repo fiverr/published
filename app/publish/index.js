@@ -54,7 +54,7 @@ module.exports = async function({testing, shouldGitTag, latestBranch, tagName}) 
     ]);
 
     const onLatestBranch = isLatestBranch(branch, latestBranch);
-    const skip = skipPublish(version, onLatestBranch);
+    const skip = skipPublish(version, onLatestBranch, tagName);
 
     if (skip) {
         return {message: skip};
