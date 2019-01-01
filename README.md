@@ -19,6 +19,7 @@ npx published
 | on-publish | Execute shell command after a publish event | `npx published --on-publish bash\ ./do-more.sh`
 | on-&lt;tag&gt; | Execute shell command after a publish event with this tag (executes after on-publish) | `npx published --on-latest 'echo "Published!"'`
 | latest-branch | Branch that is considered latest (default is 'master') | `npx published --latest-branch stable`
+| tag-name | Tag name to be used regardless of config. If performed from a branch other than `master`, needs to be used in conjunction with `latest-branch` option | `npx published --tag-name next --latest-branch next`
 
 ## TL;DR
 | Branch type | action |

@@ -24,9 +24,10 @@ const {
  * @param  {Boolean} [options.testing]
  * @param  {Boolean} [options.shouldGitTag]
  * @param  {String} [options.latestBranch]
+ * @param  {String} [options.tagName]
  * @return {Object} details of the publishing event
  */
-module.exports = async function({testing, shouldGitTag, latestBranch}) {
+module.exports = async function({testing, shouldGitTag, latestBranch, tagName}) {
     testing && console.log('Testing only, will not publish');
 
     const [
@@ -61,7 +62,7 @@ module.exports = async function({testing, shouldGitTag, latestBranch}) {
 
     const suffix = onLatestBranch ? '' : `-${short}`;
     const fullVersion = `${version}${suffix}`;
-    const tag = getTag(branch, publishConfig.tag);
+    const tag = tagName || getTag(branch, publishConfig.tag);
     const exist = await exists(name, fullVersion);
     let action = publish;
     let cliMsg = `Published version ${fullVersion}`;
