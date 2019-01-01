@@ -123,6 +123,16 @@ describe('publish', async() => {
         expect(result.message.toLowerCase()).to.contain('set tag');
     });
 
+    it('Should change tag if tagName specified', async() => {
+        NPM_FUNCTIONS.exists = () => true;
+        NPM_FUNCTIONS.publish = () => {};
+        NPM_FUNCTIONS.setTag = () => {};
+
+        const publish = require('.');
+        const result = await publish({...OPTIONS, tagName: 'next'});
+        expect(result.details.tag).to.equal('next');
+    });
+
     it('Should change tag if publishConfig tag does not point to it', async() => {
         GIT_DETAILS.branch = 'master';
         PKG_DETAILS.version = '1.0.0';
