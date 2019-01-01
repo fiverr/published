@@ -14,9 +14,10 @@ const publish = require('./publish');
  * @param  {Boolean} [options.quiet]
  * @param  {Boolean} [options.shouldGitTag]
  * @param  {Boolean} [options.testing]
+ * @param  {String} [options.tagName]
  * @return {void}
  */
-module.exports = async function({slack = {}, quiet, shouldGitTag, testing, latestBranch} = {}) {
+module.exports = async function({slack = {}, quiet, shouldGitTag, testing, latestBranch, tagName} = {}) {
     const narrate = testing || (quiet !== true);
     let result = null;
 
@@ -25,6 +26,7 @@ module.exports = async function({slack = {}, quiet, shouldGitTag, testing, lates
             testing,
             shouldGitTag,
             latestBranch,
+            tagName,
         });
 
         const {
