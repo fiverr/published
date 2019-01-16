@@ -54,11 +54,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Get a docs template
-          command: curl https://raw.githubusercontent.com/omrilotan/mono/master/packages/markt/templates/plain.html > ./template.html
-      - run:
           name: Create a webpage from the readme
-          command: npx markt --source README.md --destination ./gh-pages/index.html --template ./template.html --title published
+          command: npx markt --source README.md --destination ./gh-pages/index.html --preset plain --title "published - Opinionated NPM publish program" --description "published helps streamline a git based workflow with package publishing through continues delivery. Developers control their branch and version strategies, and published takes care of logical conditioning of when to publish stable versions and/or release candidates."
       - run:
           name: Set git user
           command: curl ci-cd.net/v1/git/user | sh -s a1vy a01101100vy@gmail.com
