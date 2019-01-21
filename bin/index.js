@@ -17,7 +17,7 @@ if (!slack.webhook && process.env.SLACK_WEBHOOK) {
 }
 
 (async() => {
-    console.log(`${name} v${version}`);
+    console.log(`☕️ ${name} v${version}`);
 
     const {details = {}} = await publish({
         slack,

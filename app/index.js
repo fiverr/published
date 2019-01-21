@@ -9,12 +9,13 @@ const publish = require('./publish');
 
 /**
  * print, publish, notify...
- * @param  {String} [options.slack.webhook]
- * @param  {String} [options.slack.channel]
+ * @param  {String}  [options.slack.webhook]
+ * @param  {String}  [options.slack.channel]
  * @param  {Boolean} [options.quiet]
  * @param  {Boolean} [options.shouldGitTag]
  * @param  {Boolean} [options.testing]
- * @param  {String} [options.tagName]
+ * @param  {{String} [options.latestBranch]
+ * @param  {String}  [options.tagName]
  * @return {void}
  */
 module.exports = async function({slack = {}, quiet, shouldGitTag, testing, latestBranch, tagName} = {}) {

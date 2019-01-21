@@ -13,7 +13,6 @@ const {
 const {
     color,
     getTag,
-    gitTag,
     gitTagMessage,
     isLatestBranch,
     skipPublish,
@@ -39,16 +38,12 @@ module.exports = async function({testing, shouldGitTag, latestBranch, tagName}) 
         },
         branch,
         author,
-        email,
-        subject,
         message,
         short,
     ] = await Promise.all([
         read(),
         git.branch,
         git.author,
-        git.email,
-        git.subject,
         git.message,
         git.short,
     ]);
@@ -91,7 +86,7 @@ module.exports = async function({testing, shouldGitTag, latestBranch, tagName}) 
 
     const [text, success] = await gitTagMessage(
         onLatestBranch && shouldGitTag,
-        async () => testing || await gitTag({version, subject, author, email, publishConfig})
+        async () => testing || await git.tag(`${publishConfig['tag-version-prefix'] || ''}${version}`)
     );
 
     text && attachments.push({text, color: color(success)});
