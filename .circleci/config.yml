@@ -48,7 +48,7 @@ jobs:
       - npmrc
       - run:
           name: Publish to NPM
-          command: npm start -- --on-latest 'curl ci-cd.net/v1/gh/run | bash -s fiverr glossary master "bin/trigger.sh" $GITHUB_API_TOKEN'
+          command: npm start
   docs:
     <<: *defaults
     steps:
@@ -62,6 +62,17 @@ jobs:
       - run:
           name: Push gh-pages
           command: curl ci-cd.net/v1/gh/pages | sh -s gh-pages/.
+  glossary:
+    <<: *defaults
+    steps:
+      - run:
+          name: Add to Glossary
+          command: |
+            curl --user ${CIRCLECI_API_TOKEN}: \
+              --header "Content-Type: application/json" \
+              --data "{\"build_parameters\":{\"TRIGGERING_REPOSITORY\":\"${CIRCLE_REPOSITORY_URL}\"}}" \
+              --request POST \
+              https://circleci.com/api/v1.1/project/github/fiverr/glossary/tree/master
 
 experimental:
   notify:
@@ -89,3 +100,10 @@ workflows:
                 - master
           requires:
             - test
+      - glossary:
+          filters:
+            branches:
+              only:
+                - master
+          requires:
+            - publish
