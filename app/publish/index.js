@@ -30,12 +30,7 @@ module.exports = async function({testing, shouldGitTag, latestBranch, tagName}) 
     testing && console.log('Testing only, will not publish');
 
     const [
-        {
-            name,
-            version,
-            homepage,
-            publishConfig = {},
-        },
+        packageJson,
         branch,
         author,
         message,
@@ -47,6 +42,17 @@ module.exports = async function({testing, shouldGitTag, latestBranch, tagName}) 
         git.message,
         git.short,
     ]);
+
+    const {
+        name,
+        version,
+        homepage,
+        publishConfig = {},
+    } = packageJson;
+
+    if (packageJson.private === true) {
+        return {message: 'Package set to private and will not be published'};
+    }
 
     const onLatestBranch = isLatestBranch(branch, latestBranch);
     const skip = skipPublish(version, onLatestBranch);
