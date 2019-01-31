@@ -1,14 +1,15 @@
 {
   "name": "published",
-  "version": "1.6.1",
-  "description": "Opinionated NPM publish program",
+  "version": "1.7.0",
+  "description": "📦 Opinionated NPM publish program",
   "keywords": [
     "npm",
     "publish",
     "ci-cd",
     "automation",
     "cli",
-    "npx"
+    "npx",
+    "📦"
   ],
   "author": "Fiverr SRE",
   "license": "MIT",

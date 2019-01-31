@@ -105,6 +105,19 @@ describe('publish', async() => {
         expect(result.message.toLowerCase()).to.contain('already published');
     });
 
+    it('Should skip publishing when private flag is set to true', async() => {
+        GIT_DETAILS.branch = 'master';
+        PKG_DETAILS.version = '1.0.0';
+        PKG_DETAILS.private = true;
+        NPM_FUNCTIONS.exists = () => false;
+        NPM_FUNCTIONS.getVersion = () => '0.0.0';
+
+        const publish = require('.');
+        const result = await publish(OPTIONS);
+
+        expect(result.message.toLowerCase()).to.contain('will not be published');
+    });
+
     it('Should change tag if version exists on but tag does not point to it', async() => {
         GIT_DETAILS.branch = 'master';
         PKG_DETAILS.version = '1.0.0';
