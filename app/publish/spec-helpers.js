@@ -32,6 +32,7 @@ const PKG_DETAILS_DEFAULTS = {
     version:       '1.0.0',
     homepage:      'https://www.website.net',
     publishConfig: undefined,
+    private:       false,
 };
 
 function _before() {
