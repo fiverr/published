@@ -63,7 +63,7 @@ module.exports = async function({testing, shouldGitTag, latestBranch, tagName}) 
 
     const suffix = onLatestBranch ? '' : `-${short}`;
     const fullVersion = `${version}${suffix}`;
-    const tag = tagName || getTag(branch, publishConfig.tag);
+    const tag = tagName || getTag(branch, publishConfig.tag, onLatestBranch);
     const exist = await exists(name, fullVersion);
     let action = publish;
     let cliMsg = `Published version ${fullVersion}`;
