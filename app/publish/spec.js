@@ -6,8 +6,9 @@ const {
     _before,
     _beforeEach,
     _afterEach,
-    _after,
+    _after
 } = require('./spec-helpers');
+
 const OPTIONS = {testing: false, shouldGitTag: false};
 
 describe('publish', async() => {
@@ -18,7 +19,7 @@ describe('publish', async() => {
 
     [
         ['master', '1.0.0'],
-        ['latest', '1.0.0'],
+        ['latest', '1.0.0']
     ].forEach(([branch, version]) => {
         it(`Should publish a clean version (${version}) on ${branch}`, async() => {
             GIT_DETAILS.branch = branch;
@@ -38,7 +39,7 @@ describe('publish', async() => {
 
     [
         ['feature-branch', '1.0.0'],
-        ['next', '1.0.0'],
+        ['next', '1.0.0']
     ].forEach(([branch, version]) => {
         it(`Should do nothing with clean version (${version}) on feature branch (${branch})`, async() => {
             GIT_DETAILS.branch = branch;
@@ -71,7 +72,7 @@ describe('publish', async() => {
             'message',
             'attachments',
             'registry',
-            'published',
+            'published'
         ]);
         const {
             name,
@@ -81,7 +82,7 @@ describe('publish', async() => {
             author,
             message,
             attachments,
-            published,
+            published
         } = result.details;
         expect(name).to.equal('fake-package-name');
         expect(version).to.equal('1.0.0');

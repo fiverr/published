@@ -1,6 +1,6 @@
 const {
     read,
-    write,
+    write
 } = require('edit-package');
 const git = require('async-git');
 const {
@@ -8,14 +8,14 @@ const {
     exists,
     getVersion,
     setTag,
-    publish,
+    publish
 } = require('jsnpm');
 const {
     color,
     getTag,
     gitTagMessage,
     isLatestBranch,
-    skipPublish,
+    skipPublish
 } = require('../../lib');
 
 /**
@@ -34,20 +34,20 @@ module.exports = async function({testing, shouldGitTag, latestBranch, tagName}) 
         branch,
         author,
         message,
-        short,
+        short
     ] = await Promise.all([
         read(),
         git.branch,
         git.author,
         git.message,
-        git.short,
+        git.short
     ]);
 
     const {
         name,
         version,
         homepage,
-        publishConfig = {},
+        publishConfig = {}
     } = packageJson;
 
     if (packageJson.private === true) {
@@ -84,7 +84,7 @@ module.exports = async function({testing, shouldGitTag, latestBranch, tagName}) 
     // Modify version and tag according to previous decisions
     await write({
         version: fullVersion,
-        publishConfig: { tag },
+        publishConfig: { tag }
     });
 
     testing || await action();
@@ -92,7 +92,7 @@ module.exports = async function({testing, shouldGitTag, latestBranch, tagName}) 
 
     const [text, success] = await gitTagMessage(
         onLatestBranch && shouldGitTag,
-        async () => testing || await git.tag(`${publishConfig['tag-version-prefix'] || ''}${version}`)
+        async() => testing || await git.tag(`${publishConfig['tag-version-prefix'] || ''}${version}`)
     );
 
     text && attachments.push({text, color: color(success)});
@@ -108,7 +108,7 @@ module.exports = async function({testing, shouldGitTag, latestBranch, tagName}) 
             message,
             attachments,
             registry: publishConfig.registry,
-            published: action === publish,
-        },
+            published: action === publish
+        }
     };
 };

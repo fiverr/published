@@ -3,13 +3,14 @@
 process.on('unhandledRejection', console.error);
 
 const execute = require('async-execute');
+const {argv} = require('yargs');
 const publish = require('../app');
 const truthy = require('../lib/truthy');
-const {argv} = require('yargs');
 const {name, version} = require('../package.json');
+
 const {
     slack = {},
-    _,
+    _
 } = argv;
 
 if (!slack.webhook && process.env.SLACK_WEBHOOK) {
@@ -25,7 +26,7 @@ if (!slack.webhook && process.env.SLACK_WEBHOOK) {
         testing: truthy(argv.testing) || _.includes('testing'),
         shouldGitTag: truthy(argv.gitTag),
         latestBranch: argv.latestBranch,
-        tagName: argv.tagName,
+        tagName: argv.tagName
     });
     const {published, tag} = details;
     const {onPublish} = argv;

@@ -1,6 +1,6 @@
 {
   "name": "published",
-  "version": "1.7.2",
+  "version": "1.7.3",
   "description": "📦 Opinionated NPM publish program",
   "keywords": [
     "npm",
@@ -24,7 +24,7 @@
   },
   "scripts": {
     "start": "./bin/index.js --git-tag",
-    "test": "find . -name 'spec.js' -not -path './node_modules/*' | xargs mocha",
+    "test": "mocha '**/spec.js'",
     "lint": "eslint -c .eslintrc '**/*.js'"
   },
   "dependencies": {
@@ -33,13 +33,15 @@
     "doamrn": "^1.0.3",
     "edit-package": "^1.0.3",
     "index-require": "^1.0.0",
-    "jsnpm": "^0.3.5",
+    "jsnpm": "^0.3.7",
     "paraphrase": "^1.7.0",
     "yargs": "^14.0.0"
   },
   "devDependencies": {
+    "@fiverr/eslint-config-fiverr": "^3.1.3",
     "chai": "^4.2.0",
-    "eslint": "^6.2.1",
+    "eslint": "^6.4.0",
+    "eslint-plugin-log": "^1.2.3",
     "import-fresh": "^3.1.0",
     "mocha": "^6.2.0"
   }

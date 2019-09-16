@@ -4,7 +4,7 @@ const {
     _before,
     _beforeEach,
     _afterEach,
-    _after,
+    _after
 } = require('./spec-helpers.js');
 
 describe('index', async() => {

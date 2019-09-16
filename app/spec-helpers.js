@@ -8,7 +8,7 @@ function _before() {
     fake(
         'edit-package',
         {
-            reset: (...args) => dummies.reset(...args),
+            reset: (...args) => dummies.reset(...args)
         }
     );
     fake(
@@ -37,8 +37,8 @@ function _after() {
     [
         'edit-package',
         './publish',
-        '../lib/slackNotification',
-    ].forEach(pkg => {
+        '../lib/slackNotification'
+    ].forEach((pkg) => {
         delete require.cache[require.resolve(pkg)];
     });
 }
@@ -48,5 +48,5 @@ module.exports = {
     _before,
     _beforeEach,
     _afterEach,
-    _after,
+    _after
 };

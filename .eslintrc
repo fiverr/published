@@ -1,33 +1,7 @@
 {
-  "parserOptions": {
-    "ecmaVersion": 2018,
-    "sourceType": "module"
-  },
-  "env": {
-    "node": true,
-    "es6": true
-  },
-  "extends": "eslint:recommended",
-  "rules": {
-    "semi": "error",
-    "arrow-parens": [2, "as-needed"],
-    "comma-dangle": ["error", "always-multiline"],
-    "quotes": ["error", "single"],
-    "dot-location": ["error", "property"],
-    "dot-notation": "error",
-    "no-implicit-globals": "error",
-    "no-console": 0
-  },
-  "overrides": [
-    {
-      "files": [ "**/spec.js" ],
-      "env": {
-        "mocha": true
-      },
-      "globals": {
-        "expect": true,
-        "assert": true
-      }
-    }
+  "extends": [
+    "@fiverr/eslint-config-fiverr/rules/base",
+    "@fiverr/eslint-config-fiverr/rules/es6",
+    "@fiverr/eslint-config-fiverr/rules/mocha"
   ]
 }

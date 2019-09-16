@@ -3,7 +3,7 @@ const git = require('async-git');
 const {
     formatSlackMessage,
     slackNotification,
-    successMessage,
+    successMessage
 } = require('../lib');
 const publish = require('./publish');
 
@@ -27,12 +27,12 @@ module.exports = async function({slack = {}, quiet, shouldGitTag, testing, lates
             testing,
             shouldGitTag,
             latestBranch,
-            tagName,
+            tagName
         });
 
         const {
             message,
-            details,
+            details
         } = result;
 
         if (!narrate) {
@@ -42,7 +42,7 @@ module.exports = async function({slack = {}, quiet, shouldGitTag, testing, lates
         if (details) {
             const body = formatSlackMessage({
                 ...successMessage(details),
-                channel: slack.channel,
+                channel: slack.channel
             });
 
             if (testing) {
@@ -66,7 +66,7 @@ module.exports = async function({slack = {}, quiet, shouldGitTag, testing, lates
                 status: 'fail',
                 pretext: `An error has occured trying to publish from ${await git.name} repository`,
                 text: error.message,
-                channel: slack.channel,
+                channel: slack.channel
             });
             await slackNotification(slack, body);
         }

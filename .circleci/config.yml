@@ -38,7 +38,7 @@ jobs:
           command: npm t
       - run:
           name: Code linting
-          command: npm run lint
+          command: npm run lint -- --plugin log
   publish:
     <<: *defaults
     steps:

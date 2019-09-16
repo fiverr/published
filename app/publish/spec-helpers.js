@@ -13,26 +13,26 @@ const NPM_FUNCTIONS_DEFAULTS = {
     exists: noop,
     getVersion: noop,
     setTag: err,
-    publish: err,
+    publish: err
 };
 
 const GIT_DETAILS = {};
 const GIT_DETAILS_DEFAULTS = {
-    branch:   'master',
-    author:   'the author',
-    email:    'author@email.net',
-    subject:  'Some subject',
-    message:  'Some subject\n\nDid a thing',
-    short:    '12345678',
+    branch: 'master',
+    author: 'the author',
+    email: 'author@email.net',
+    subject: 'Some subject',
+    message: 'Some subject\n\nDid a thing',
+    short: '12345678'
 };
 
 const PKG_DETAILS = {};
 const PKG_DETAILS_DEFAULTS = {
-    name:          'fake-package-name',
-    version:       '1.0.0',
-    homepage:      'https://www.website.net',
+    name: 'fake-package-name',
+    version: '1.0.0',
+    homepage: 'https://www.website.net',
     publishConfig: undefined,
-    private:       false,
+    private: false
 };
 
 function _before() {
@@ -44,12 +44,12 @@ function _before() {
                 Object.keys(PKG_DETAILS_DEFAULTS).reduce(
                     (accumulator, key) => ({
                         ...accumulator,
-                        [key]: {get: () => PKG_DETAILS[key]},
+                        [key]: {get: () => PKG_DETAILS[key]}
                     }),
                     {}
                 )
             ),
-            write: () => null,
+            write: () => null
         }
     );
 
@@ -60,7 +60,7 @@ function _before() {
             Object.keys(GIT_DETAILS_DEFAULTS).reduce(
                 (accumulator, key) => ({
                     ...accumulator,
-                    [key]: {get: () => GIT_DETAILS[key]},
+                    [key]: {get: () => GIT_DETAILS[key]}
                 }),
                 {}
             )
@@ -74,7 +74,7 @@ function _before() {
             Object.keys(NPM_FUNCTIONS_DEFAULTS).reduce(
                 (accumulator, key) => ({
                     ...accumulator,
-                    [key]: {get: () => NPM_FUNCTIONS[key]},
+                    [key]: {get: () => NPM_FUNCTIONS[key]}
                 }),
                 {}
             )
@@ -89,15 +89,13 @@ function _beforeEach() {
     delete require.cache[require.resolve('.')];
 }
 
-function _afterEach() {}
-
 function _after() {
     [
         'edit-package',
         'async-git',
         'jsnpm',
-        '.',
-    ].forEach(pkg => {
+        '.'
+    ].forEach((pkg) => {
         delete require.cache[require.resolve(pkg)];
     });
 }
@@ -108,6 +106,6 @@ module.exports = {
     PKG_DETAILS,
     _before,
     _beforeEach,
-    _afterEach,
-    _after,
+    _afterEach: () => null,
+    _after
 };
