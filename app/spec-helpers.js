@@ -23,7 +23,8 @@ function _before() {
 
 function _beforeEach() {
     dummies.reset = () => null;
-    dummies.publish = () => ({ message: 'dummy' });
+    dummies.slack = () => null;
+    dummies.publish = () => ({ message: 'dummy', details: {} });
 }
 
 const log = console.log;

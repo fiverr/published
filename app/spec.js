@@ -98,7 +98,7 @@ describe('index', async() => {
             // ignore
         }
         expect(resetCalled).to.equal(2);
-        expect(slackCalled).to.equal(0);
+        expect(slackCalled).to.equal(2);
     });
 
     it('Should pipe the result of publish function', async() => {
