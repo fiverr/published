@@ -1,4 +1,4 @@
-const {reset} = require('edit-package');
+const { reset } = require('edit-package');
 const git = require('async-git');
 const {
     formatSlackMessage,
@@ -18,7 +18,7 @@ const publish = require('./publish');
  * @param  {String}  [options.tagName]
  * @return {void}
  */
-module.exports = async function({slack = {}, quiet, shouldGitTag, testing, latestBranch, tagName} = {}) {
+module.exports = async function({ slack = {}, quiet, shouldGitTag, testing, latestBranch, tagName } = {}) {
     const narrate = testing || (quiet !== true);
     let result = null;
 

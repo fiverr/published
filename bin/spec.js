@@ -1,4 +1,4 @@
-const {expect} = require('chai');
+const { expect } = require('chai');
 
 const dummy = {};
 
@@ -30,7 +30,7 @@ describe('bin', () => {
 
     it('Should call on publish with defaults', () => {
         let called = false;
-        dummy.index = ({slack, testing, quiet, shouldGitTag}) => {
+        dummy.index = ({ slack, testing, quiet, shouldGitTag }) => {
             called = true;
             expect(testing).to.be.false;
             expect(quiet).to.be.false;
@@ -44,7 +44,7 @@ describe('bin', () => {
     it('Should convert some arguments to true when it\'s the string "true"', () => {
         process.argv = 'node mocha --testing true --quiet true --git-tag true'.split(' ');
         let called = false;
-        dummy.index = ({testing, quiet, shouldGitTag}) => {
+        dummy.index = ({ testing, quiet, shouldGitTag }) => {
             called = true;
             expect(testing).to.be.true;
             expect(quiet).to.be.true;
@@ -57,9 +57,9 @@ describe('bin', () => {
     it('Should allow environment SLACK_WEBHOOK', () => {
         process.env.SLACK_WEBHOOK = 'https://www.webhook.net';
         let called = false;
-        dummy.index = ({slack}) => {
+        dummy.index = ({ slack }) => {
             called = true;
-            expect(slack).to.deep.equal({webhook: 'https://www.webhook.net'});
+            expect(slack).to.deep.equal({ webhook: 'https://www.webhook.net' });
         };
         require('.');
         expect(called).to.be.true;
@@ -68,7 +68,7 @@ describe('bin', () => {
     it('Should use "testing" string (legacy feature)', () => {
         process.argv = 'node mocha testing'.split(' ');
         let called = false;
-        dummy.index = ({testing}) => {
+        dummy.index = ({ testing }) => {
             called = true;
             expect(testing).to.be.true;
         };

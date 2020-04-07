@@ -26,7 +26,7 @@ const {
  * @param  {String} [options.tagName]
  * @return {Object} details of the publishing event
  */
-module.exports = async function({testing, shouldGitTag, latestBranch, tagName}) {
+module.exports = async function({ testing, shouldGitTag, latestBranch, tagName }) {
     testing && console.log('Testing only, will not publish');
 
     const [
@@ -51,14 +51,14 @@ module.exports = async function({testing, shouldGitTag, latestBranch, tagName}) 
     } = packageJson;
 
     if (packageJson.private === true) {
-        return {message: 'Package set to private and will not be published'};
+        return { message: 'Package set to private and will not be published' };
     }
 
     const onLatestBranch = isLatestBranch(branch, latestBranch);
     const skip = skipPublish(version, onLatestBranch);
 
     if (skip) {
-        return {message: skip};
+        return { message: skip };
     }
 
     const suffix = onLatestBranch ? '' : `-${short}`;
@@ -71,7 +71,7 @@ module.exports = async function({testing, shouldGitTag, latestBranch, tagName}) 
     if (exist) {
 
         if ((await getVersion(name, tag)) === fullVersion) {
-            return {message: `${name}@${fullVersion} already published`};
+            return { message: `${name}@${fullVersion} already published` };
         } else {
             action = () => setTag(name, fullVersion, tag);
             cliMsg = `Set tag ${tag} to ${fullVersion}`;
@@ -95,7 +95,7 @@ module.exports = async function({testing, shouldGitTag, latestBranch, tagName}) 
         async() => testing || await git.tag(`${publishConfig['tag-version-prefix'] || ''}${version}`)
     );
 
-    text && attachments.push({text, color: color(success)});
+    text && attachments.push({ text, color: color(success) });
 
     return {
         message: cliMsg,

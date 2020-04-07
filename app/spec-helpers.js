@@ -23,7 +23,7 @@ function _before() {
 
 function _beforeEach() {
     dummies.reset = () => null;
-    dummies.publish = () => ({message: 'dummy'});
+    dummies.publish = () => ({ message: 'dummy' });
 }
 
 const log = console.log;

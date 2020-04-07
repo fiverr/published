@@ -1,4 +1,4 @@
-const {expect} = require('chai');
+const { expect } = require('chai');
 const {
     NPM_FUNCTIONS,
     GIT_DETAILS,
@@ -9,7 +9,7 @@ const {
     _after
 } = require('./spec-helpers');
 
-const OPTIONS = {testing: false, shouldGitTag: false};
+const OPTIONS = { testing: false, shouldGitTag: false };
 
 describe('publish', async() => {
     before(_before);
@@ -143,14 +143,14 @@ describe('publish', async() => {
         NPM_FUNCTIONS.setTag = (pkg, version, tag) => expect(tag).to.equal('next');
 
         const publish = require('.');
-        const result = await publish({...OPTIONS, tagName: 'next'});
+        const result = await publish({ ...OPTIONS, tagName: 'next' });
         expect(result.details.tag).to.equal('next');
     });
 
     it('Should change tag if publishConfig tag does not point to it', async() => {
         GIT_DETAILS.branch = 'master';
         PKG_DETAILS.version = '1.0.0';
-        PKG_DETAILS.publishConfig = {tag: 'next'};
+        PKG_DETAILS.publishConfig = { tag: 'next' };
         NPM_FUNCTIONS.exists = () => true;
         NPM_FUNCTIONS.getVersion = (_, tag) => tag === 'latest' ? '1.0.0' : '0.9.0';
         let published = false;
