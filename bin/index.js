@@ -26,7 +26,8 @@ if (!slack.webhook && process.env.SLACK_WEBHOOK) {
         testing: truthy(argv.testing) || _.includes('testing'),
         shouldGitTag: truthy(argv.gitTag),
         latestBranch: argv.latestBranch,
-        tagName: argv.tagName
+        tagName: argv.tagName,
+        noSha: truthy(argv.noSha)
     });
     const { published, tag } = details;
     const { onPublish } = argv;

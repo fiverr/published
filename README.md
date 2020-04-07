@@ -22,6 +22,7 @@ npx published
 | on-&lt;tag&gt; | Execute shell command after a publish event with this tag (executes after on-publish) | `npx published --on-latest 'echo "Published!"'`
 | latest-branch | Branch that is considered latest (default is 'master') | `npx published --latest-branch stable`
 | tag-name | Tag name to be used regardless of config. If performed from a branch other than `master`, needs to be used in conjunction with `latest-branch` option | `npx published --tag-name next --latest-branch next`
+| no-sha | Disables the commit's SHA suffix for RC versions | `npx published --no-sha`
 
 ## TL;DR
 | Branch type | action |
@@ -43,7 +44,7 @@ echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
 #### Feature branch
 
 - Publish only versions with a pre-release section containing `rc` string
-- Branch versions get a suffix that matches the commit ID, so you can re install the same tag and get updates
+- Unless the `--no-sha` flag was passed, branch versions get a suffix that matches the commit ID, so you can re install the same tag and get updates
 - Tags are named after the branch name
 
 #### "master" branch
@@ -58,15 +59,17 @@ echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
 
 ### Examples
 
-| branch | version | publish | tag
-| - | - | - | -
-| `my_feature_branch`, `next` | `1.3.0` | nothing | N/A
-| `my_feature_branch`, `next` | `1.3.1-alpha` | nothing | N/A
-| `my_feature_branch`, `next` | `1.3.1-rc` | `1.3.1-rc-c447f6a` | `my_feature_branch`, `next`
-| `my_feature_branch`, `next` | `1.3.1-rc.1` | `1.3.1-rc.1-c447f6a` | `my_feature_branch`, `next`
-| `master`, `latest` | `1.3.0` | `1.3.0` | `latest`
-| `master`, `latest` | `1.3.0-beta` | Throws Error | N/A
-| `master`, `latest` | `1.3.0-rc` | Throws Error | N/A
+| branch | version | publish | tag | w/o sha
+| - | - | - | - | -
+| `my_feature_branch`, `next` | `1.3.0` | nothing | N/A | -
+| `my_feature_branch`, `next` | `1.3.1-alpha` | nothing | N/A | -
+| `my_feature_branch`, `next` | `1.3.1-rc` | `1.3.1-rc` | `my_feature_branch`, `next` | ✓
+| `my_feature_branch`, `next` | `1.3.1-rc.1` | `1.3.1-rc.1` | `my_feature_branch`, `next` | ✓
+| `my_feature_branch`, `next` | `1.3.1-rc` | `1.3.1-rc-c447f6a` | `my_feature_branch`, `next` | ✕
+| `my_feature_branch`, `next` | `1.3.1-rc.1` | `1.3.1-rc.1-c447f6a` | `my_feature_branch`, `next` | ✕
+| `master`, `latest` | `1.3.0` | `1.3.0` | `latest` | -
+| `master`, `latest` | `1.3.0-beta` | Throws Error | N/A | -
+| `master`, `latest` | `1.3.0-rc` | Throws Error | N/A | -
 
 > \* using `latest-branch` option will switch its behaviour with master
 
