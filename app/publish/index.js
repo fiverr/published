@@ -22,11 +22,12 @@ const {
  * Publish the package according to your opinion
  * @param  {Boolean} [options.testing]
  * @param  {Boolean} [options.shouldGitTag]
- * @param  {String} [options.latestBranch]
- * @param  {String} [options.tagName]
- * @return {Object} details of the publishing event
+ * @param  {String}  [options.latestBranch]
+ * @param  {String}  [options.tagName]
+ * @param  {Boolean} [options.noSha]
+ * @return {Object}  details of the publishing event
  */
-module.exports = async function({ testing, shouldGitTag, latestBranch, tagName }) {
+module.exports = async function({ testing, shouldGitTag, latestBranch, tagName, noSha }) {
     testing && console.log('Testing only, will not publish');
 
     const [
@@ -61,7 +62,7 @@ module.exports = async function({ testing, shouldGitTag, latestBranch, tagName }
         return { message: skip };
     }
 
-    const suffix = onLatestBranch ? '' : `-${short}`;
+    const suffix = onLatestBranch || noSha ? '' : `-${short}`;
     const fullVersion = `${version}${suffix}`;
     const tag = tagName || getTag(branch, publishConfig.tag, onLatestBranch);
     const exist = await exists(name, fullVersion);

@@ -55,7 +55,6 @@ describe('publish', async() => {
         });
     });
 
-
     it('Should return a details object', async() => {
         GIT_DETAILS.branch = 'master';
         PKG_DETAILS.version = '1.0.0';
@@ -194,5 +193,29 @@ describe('publish', async() => {
             expect(error.message.toLowerCase()).to.contain('not allowed');
         }
         expect(threw).to.be.true;
+    });
+
+    describe('Version suffix', () => {
+        it('Should suffix the version\'s name if not in master branch', async() => {
+            GIT_DETAILS.branch = 'not-master';
+            PKG_DETAILS.version = '1.0.0-rc';
+            NPM_FUNCTIONS.publish = () => null;
+
+            const publish = require('.');
+            const { details: { version } } = await publish(OPTIONS);
+
+            expect(version).to.match(new RegExp(`${PKG_DETAILS.version}-.*`));
+        });
+
+        it('Should not suffix the version\'s name if not in master branch and `--no-sha` was passed', async() => {
+            GIT_DETAILS.branch = 'not-master';
+            PKG_DETAILS.version = '1.0.0-rc';
+            NPM_FUNCTIONS.publish = () => null;
+
+            const publish = require('.');
+            const { details: { version } } = await publish({ ...OPTIONS, noSha: true });
+
+            expect(version).to.eql(PKG_DETAILS.version);
+        });
     });
 });
