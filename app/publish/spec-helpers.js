@@ -44,7 +44,7 @@ function _before() {
                 Object.keys(PKG_DETAILS_DEFAULTS).reduce(
                     (accumulator, key) => ({
                         ...accumulator,
-                        [key]: {get: () => PKG_DETAILS[key]}
+                        [key]: { get: () => PKG_DETAILS[key] }
                     }),
                     {}
                 )
@@ -60,7 +60,7 @@ function _before() {
             Object.keys(GIT_DETAILS_DEFAULTS).reduce(
                 (accumulator, key) => ({
                     ...accumulator,
-                    [key]: {get: () => GIT_DETAILS[key]}
+                    [key]: { get: () => GIT_DETAILS[key] }
                 }),
                 {}
             )
@@ -74,7 +74,7 @@ function _before() {
             Object.keys(NPM_FUNCTIONS_DEFAULTS).reduce(
                 (accumulator, key) => ({
                     ...accumulator,
-                    [key]: {get: () => NPM_FUNCTIONS[key]}
+                    [key]: { get: () => NPM_FUNCTIONS[key] }
                 }),
                 {}
             )

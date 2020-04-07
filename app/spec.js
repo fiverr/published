@@ -1,4 +1,4 @@
-const {expect} = require('chai');
+const { expect } = require('chai');
 const {
     dummies,
     _before,
@@ -21,21 +21,21 @@ describe('index', async() => {
 
     it('Should pass `testing` and `shouldGitTag` to "publish"', async() => {
         let called = 0;
-        dummies.publish = ({testing, shouldGitTag}) => {
+        dummies.publish = ({ testing, shouldGitTag }) => {
             called++;
             expect(testing).to.be.undefined;
             expect(shouldGitTag).to.be.undefined;
-            return {message: 'dummy'};
+            return { message: 'dummy' };
         };
         await index();
 
-        dummies.publish = ({testing, shouldGitTag}) => {
+        dummies.publish = ({ testing, shouldGitTag }) => {
             called++;
             expect(testing).to.be.true;
             expect(shouldGitTag).to.be.true;
-            return {message: 'dummy'};
+            return { message: 'dummy' };
         };
-        await index({testing: true, shouldGitTag: true});
+        await index({ testing: true, shouldGitTag: true });
 
         expect(called).to.equal(2);
     });
@@ -46,7 +46,7 @@ describe('index', async() => {
             called = true;
             log(...args);
         };
-        await index({quiet: true});
+        await index({ quiet: true });
         expect(called).to.be.false;
     });
 
@@ -56,7 +56,7 @@ describe('index', async() => {
             called = true;
             log(...args);
         };
-        await index({quiet: true, testing: true});
+        await index({ quiet: true, testing: true });
         expect(called).to.be.true;
     });
 
@@ -98,12 +98,12 @@ describe('index', async() => {
             // ignore
         }
         expect(resetCalled).to.equal(2);
-        expect(slackCalled).to.equal(0);
+        expect(slackCalled).to.equal(2);
     });
 
     it('Should pipe the result of publish function', async() => {
-        dummies.publish = async() => ({something: {any: 'thing'}});
+        dummies.publish = async() => ({ something: { any: 'thing' } });
         const result = await index();
-        expect(result).to.deep.equal({something: {any: 'thing'}});
+        expect(result).to.deep.equal({ something: { any: 'thing' } });
     });
 });
