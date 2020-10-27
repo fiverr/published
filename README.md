@@ -4,25 +4,25 @@
 
 published helps streamline a git based workflow with package publishing through continues delivery. Developers control their branch and version strategies, and published takes care of logical conditioning of when to publish stable versions and/or release candidates.
 
-### Run using npx
+### Run using npm exec
 ```sh
-npx published
+npm exec published --yes
 ```
 
 ### Options
 
 | option | Description | Example
 | - | - | -
-| testing | Dry run | `npx published --testing`
-| slack.webhook | Notify on Slack | `npx published --slack.webhook $SLACK_WEBHOOK`
-| slack.channel | Change Slack webhook channel | `npx published --slack.webhook $SLACK_WEBHOOK --slack.channel "#publish"`
-| quiet | Silent outputs and notifications | `npx published --quiet`
-| git-tag | Push a tag to git, Only from `master`(latest-branch) or `latest` branch | `npx published --git-tag`
-| on-publish | Execute shell command after a publish event | `npx published --on-publish bash\ ./do-more.sh`
-| on-&lt;tag&gt; | Execute shell command after a publish event with this tag (executes after on-publish) | `npx published --on-latest 'echo "Published!"'`
-| latest-branch | Branch that is considered latest (default is 'master') | `npx published --latest-branch stable`
-| tag-name | Tag name to be used regardless of config. If performed from a branch other than `master`, needs to be used in conjunction with `latest-branch` option | `npx published --tag-name next --latest-branch next`
-| no-sha | Disables the commit's SHA suffix for RC versions | `npx published --no-sha`
+| testing | Dry run | `npm exec published --yes -- --testing`
+| slack.webhook | Notify on Slack | `npm exec published --yes -- --slack.webhook $SLACK_WEBHOOK`
+| slack.channel | Change Slack webhook channel | `npm exec published --yes -- --slack.webhook $SLACK_WEBHOOK --slack.channel "#publish"`
+| quiet | Silent outputs and notifications | `npm exec published --yes -- --quiet`
+| git-tag | Push a tag to git, Only from `master`(latest-branch) or `latest` branch | `npm exec published --yes -- --git-tag`
+| on-publish | Execute shell command after a publish event | `npm exec published --yes -- --on-publish bash\ ./do-more.sh`
+| on-&lt;tag&gt; | Execute shell command after a publish event with this tag (executes after on-publish) | `npm exec published --yes -- --on-latest 'echo "Published!"'`
+| latest-branch | Branch that is considered latest (default is 'master') | `npm exec published --yes -- --latest-branch stable`
+| tag-name | Tag name to be used regardless of config. If performed from a branch other than `master`, needs to be used in conjunction with `latest-branch` option | `npm exec published --yes -- --tag-name next --latest-branch next`
+| no-sha | Disables the commit's SHA suffix for RC versions | `npm exec published --yes -- --no-sha`
 
 ## TL;DR
 | Branch type | action |
