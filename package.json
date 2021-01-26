@@ -1,6 +1,6 @@
 {
   "name": "published",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "description": "📦 Opinionated NPM publish program",
   "keywords": [
     "npm",
@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "async-execute": "^1.1.0",
-    "async-git": "^1.6.1",
+    "async-git": "1.13.0",
     "doamrn": "^1.0.3",
     "edit-package": "^1.0.3",
     "index-require": "^1.0.0",
