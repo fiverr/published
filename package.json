@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "async-execute": "^1.1.0",
-    "async-git": "1.13.0",
+    "async-git": "1.13.2",
     "doamrn": "^1.0.3",
     "edit-package": "^1.0.3",
     "index-require": "^1.0.0",
