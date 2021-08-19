@@ -17,6 +17,10 @@ if (!slack.webhook && process.env.SLACK_WEBHOOK) {
     slack.webhook = process.env.SLACK_WEBHOOK;
 }
 
+if (!slack.channel && process.env.SLACK_PUBLISHED_CHANNEL) {
+    slack.channel = process.env.SLACK_PUBLISHED_CHANNEL;
+}
+
 (async() => {
     console.log(`☕️ ${name} v${version}`);
 

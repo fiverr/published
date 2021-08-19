@@ -1,6 +1,6 @@
 {
   "name": "published",
-  "version": "1.8.1",
+  "version": "1.8.2",
   "description": "📦 Opinionated NPM publish program",
   "keywords": [
     "npm",
