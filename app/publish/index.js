@@ -59,7 +59,7 @@ module.exports = async function({ testing, shouldGitTag, latestBranch, tagName, 
     const skip = skipPublish(version, onLatestBranch);
 
     if (skip) {
-        return { message: skip };
+        return { message: [ name, skip ].join(': ') };
     }
 
     const suffix = onLatestBranch || noSha ? '' : `-${short}`;
@@ -67,7 +67,7 @@ module.exports = async function({ testing, shouldGitTag, latestBranch, tagName, 
     const tag = tagName || getTag(branch, publishConfig.tag, onLatestBranch);
     const exist = await exists(name, fullVersion);
     let action = publish;
-    let cliMsg = `Published version ${fullVersion}`;
+    let cliMsg = `${name}: Published version ${fullVersion}`;
 
     if (exist) {
 
@@ -75,7 +75,7 @@ module.exports = async function({ testing, shouldGitTag, latestBranch, tagName, 
             return { message: `${name}@${fullVersion} already published` };
         } else {
             action = () => setTag(name, fullVersion, tag);
-            cliMsg = `Set tag ${tag} to ${fullVersion}`;
+            cliMsg = `${name}: Set tag ${tag} to ${fullVersion}`;
         }
     }
 
