@@ -19,23 +19,25 @@ describe('index', async() => {
     afterEach(_afterEach);
     after(_after);
 
-    it('Should pass `testing` and `shouldGitTag` to "publish"', async() => {
+    it('Should pass `testing`, `shouldGitTag` and `prefixGitTag` to "publish"', async() => {
         let called = 0;
-        dummies.publish = ({ testing, shouldGitTag }) => {
+        dummies.publish = ({ testing, shouldGitTag, prefixGitTag }) => {
             called++;
             expect(testing).to.be.undefined;
             expect(shouldGitTag).to.be.undefined;
+            expect(prefixGitTag).to.be.undefined;
             return { message: 'dummy' };
         };
         await index();
 
-        dummies.publish = ({ testing, shouldGitTag }) => {
+        dummies.publish = ({ testing, shouldGitTag, prefixGitTag }) => {
             called++;
             expect(testing).to.be.true;
             expect(shouldGitTag).to.be.true;
+            expect(prefixGitTag).to.be('some-prefix');
             return { message: 'dummy' };
         };
-        await index({ testing: true, shouldGitTag: true });
+        await index({ testing: true, shouldGitTag: true, prefixGitTag: 'some-prefix' });
 
         expect(called).to.equal(2);
     });

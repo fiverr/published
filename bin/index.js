@@ -29,6 +29,7 @@ if (!slack.channel && process.env.SLACK_PUBLISHED_CHANNEL) {
         quiet: truthy(argv.quiet),
         testing: truthy(argv.testing) || _.includes('testing'),
         shouldGitTag: truthy(argv.gitTag),
+        prefixGitTag: argv.prefixGitTag,
         latestBranch: argv.latestBranch,
         tagName: argv.tagName,
         noSha: truthy(argv.noSha)
