@@ -54,6 +54,18 @@ describe('bin', () => {
         expect(called).to.be.true;
     });
 
+    it('Should be able to receive a prefix-git-tag argument', () => {
+        process.argv = 'node mocha --testing true --quiet true --git-tag true --prefix-git-tag some-prefix'.split(' ');
+        let called = false;
+        dummy.index = ({ shouldGitTag, prefixGitTag }) => {
+            called = true;
+            expect(shouldGitTag).to.be.true;
+            expect(prefixGitTag).to.be('some-prefix');
+        };
+        require('.');
+        expect(called).to.be.true;
+    });
+
     it('Should allow environment SLACK_WEBHOOK', () => {
         process.env.SLACK_WEBHOOK = 'https://www.webhook.net';
         let called = false;

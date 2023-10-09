@@ -18,6 +18,7 @@ npm exec published --yes
 | slack.channel | Change Slack webhook channel | `npm exec published --yes -- --slack.webhook $SLACK_WEBHOOK --slack.channel "#publish"`
 | quiet | Silent outputs and notifications | `npm exec published --yes -- --quiet`
 | git-tag | Push a tag to git, Only from `master`(latest-branch) or `latest` branch | `npm exec published --yes -- --git-tag`
+| prefix-git-tag | Choose a prefix that will be prepend to git tag. Only from `master`(latest-branch) or `latest` branch | `npm exec published --yes -- --git-tag --prefix-git-tag=my-prefix@`
 | on-publish | Execute shell command after a publish event | `npm exec published --yes -- --on-publish bash\ ./do-more.sh`
 | on-&lt;tag&gt; | Execute shell command after a publish event with this tag (executes after on-publish) | `npm exec published --yes -- --on-latest 'echo "Published!"'`
 | latest-branch | Branch that is considered latest (default is 'master') | `npm exec published --yes -- --latest-branch stable`

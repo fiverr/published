@@ -13,13 +13,14 @@ const publish = require('./publish');
  * @param  {String}  [options.slack.channel]
  * @param  {Boolean} [options.quiet]
  * @param  {Boolean} [options.shouldGitTag]
+ * @param  {String}  [options.prefixGitTag]
  * @param  {Boolean} [options.testing]
  * @param  {String}  [options.latestBranch]
  * @param  {String}  [options.tagName]
  * @param  {Boolean} [options.noSha]
  * @return {void}
  */
-module.exports = async function({ slack = {}, quiet, shouldGitTag, testing, latestBranch, tagName, noSha } = {}) {
+module.exports = async function({ slack = {}, quiet, shouldGitTag, prefixGitTag, testing, latestBranch, tagName, noSha } = {}) {
     const narrate = testing || (quiet !== true);
     let result = null;
 
@@ -27,6 +28,7 @@ module.exports = async function({ slack = {}, quiet, shouldGitTag, testing, late
         result = await publish({
             testing,
             shouldGitTag,
+            prefixGitTag,
             latestBranch,
             tagName,
             noSha

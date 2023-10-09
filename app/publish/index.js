@@ -22,12 +22,13 @@ const {
  * Publish the package according to your opinion
  * @param  {Boolean} [options.testing]
  * @param  {Boolean} [options.shouldGitTag]
+ * @param  {String}  [options.prefixGitTag]
  * @param  {String}  [options.latestBranch]
  * @param  {String}  [options.tagName]
  * @param  {Boolean} [options.noSha]
  * @return {Object}  details of the publishing event
  */
-module.exports = async function({ testing, shouldGitTag, latestBranch, tagName, noSha }) {
+module.exports = async function({ testing, shouldGitTag, prefixGitTag, latestBranch, tagName, noSha }) {
     testing && console.log('Testing only, will not publish');
 
     const [
@@ -93,7 +94,7 @@ module.exports = async function({ testing, shouldGitTag, latestBranch, tagName, 
 
     const [text, success] = await gitTagMessage(
         onLatestBranch && shouldGitTag,
-        async() => testing || await git.tag(`${publishConfig['tag-version-prefix'] || ''}${version}`)
+        async() => testing || await git.tag(`${publishConfig['tag-version-prefix'] || prefixGitTag || ''}${version}`)
     );
 
     text && attachments.push({ text, color: color(success) });
