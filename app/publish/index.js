@@ -91,11 +91,10 @@ module.exports = async function({ testing, shouldGitTag, prefixGitTag, latestBra
 
     testing || await action();
     const attachments = [];
-    const finalPrefixGitTag = prefixGitTag || publishConfig['tag-version-prefix'] || '';
 
     const [text, success] = await gitTagMessage(
         onLatestBranch && shouldGitTag,
-        async() => testing || await git.tag(`${finalPrefixGitTag}${version}`)
+        async() => testing || await git.tag(`${publishConfig['tag-version-prefix'] || prefixGitTag || ''}${version}`)
     );
 
     text && attachments.push({ text, color: color(success) });
