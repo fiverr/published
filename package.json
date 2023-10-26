@@ -33,7 +33,7 @@
     "doamrn": "^1.0.3",
     "edit-package": "^1.0.3",
     "index-require": "^1.0.0",
-    "jsnpm": "^0.3.7",
+    "jsnpm": "^0.4.0",
     "paraphrase": "^1.7.0",
     "yargs": "^14.0.0"
   },
