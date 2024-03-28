@@ -1,15 +1,7 @@
 defaults: &defaults
   working_directory: ~/app
   docker:
-    - image: circleci/node:8
-
-commands:
-  npmrc:
-    description: Create NPM credentials file
-    steps:
-      - run:
-          name: Create NPM credentials file
-          command: echo -e $NPMRC > ~/.npmrc
+    - image: cimg/node:20.12.0
 
 version: 2.1
 jobs:
@@ -17,22 +9,20 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-      - npmrc
+      - run: echo -e $NPMRC > ~/.npmrc
       - run:
           name: Install dependencies
           command: "[ -d node_modules ] || npm i"
-      - save_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
+      - persist_to_workspace:
+          root: .
           paths:
             - ./node_modules
   test:
     <<: *defaults
     steps:
       - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
+      - attach_workspace:
+          at: .
       - run:
           name: Run tests
           command: npm t
@@ -43,9 +33,9 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "package.json" }}
-      - npmrc
+      - attach_workspace:
+          at: .
+      - run: echo -e $NPMRC > ~/.npmrc
       - run:
           name: Publish to NPM
           command: npm start
@@ -73,12 +63,6 @@ jobs:
               --data "{\"build_parameters\":{\"TRIGGERING_REPOSITORY\":\"${CIRCLE_REPOSITORY_URL}\"}}" \
               --request POST \
               https://circleci.com/api/v1.1/project/github/fiverr/glossary/tree/master
-
-experimental:
-  notify:
-    branches:
-      only:
-        - master
 
 workflows:
   version: 2.1

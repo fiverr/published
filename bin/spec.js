@@ -60,7 +60,7 @@ describe('bin', () => {
         dummy.index = ({ shouldGitTag, prefixGitTag }) => {
             called = true;
             expect(shouldGitTag).to.be.true;
-            expect(prefixGitTag).to.be('some-prefix');
+            expect(prefixGitTag).to.be.equal('some-prefix');
         };
         require('.');
         expect(called).to.be.true;

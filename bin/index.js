@@ -24,7 +24,7 @@ if (!slack.channel && process.env.SLACK_PUBLISHED_CHANNEL) {
 (async() => {
     console.log(`☕️ ${name} v${version}`);
 
-    const { details = {} } = await publish({
+    const data = await publish({
         slack,
         quiet: truthy(argv.quiet),
         testing: truthy(argv.testing) || _.includes('testing'),
@@ -34,6 +34,7 @@ if (!slack.channel && process.env.SLACK_PUBLISHED_CHANNEL) {
         tagName: argv.tagName,
         noSha: truthy(argv.noSha)
     });
+    const { details = {} } = data || {};
     const { published, tag } = details;
     const { onPublish } = argv;
     const onTag = argv[`on-${tag}`];

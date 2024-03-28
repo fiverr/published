@@ -34,7 +34,7 @@ describe('index', async() => {
             called++;
             expect(testing).to.be.true;
             expect(shouldGitTag).to.be.true;
-            expect(prefixGitTag).to.be('some-prefix');
+            expect(prefixGitTag).to.be.equal('some-prefix');
             return { message: 'dummy' };
         };
         await index({ testing: true, shouldGitTag: true, prefixGitTag: 'some-prefix' });

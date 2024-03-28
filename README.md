@@ -4,9 +4,13 @@
 
 published helps streamline a git based workflow with package publishing through continues delivery. Developers control their branch and version strategies, and published takes care of logical conditioning of when to publish stable versions and/or release candidates.
 
-### Run using npm exec
+### Run without installation
 ```sh
-npm exec published --yes
+npx published@1
+```
+OR
+```sh
+npm exec published@1 --yes
 ```
 
 ### Options
